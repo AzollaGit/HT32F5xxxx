@@ -1,0 +1,943 @@
+ARM GAS  /tmp/ccNa0U7i.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"system_ht32f1xxxx_01.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.SystemInit,"ax",%progbits
+  16              		.align	1
+  17              		.global	SystemInit
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	SystemInit:
+  25              	.LFB66:
+  26              		.file 1 "Src/system_ht32f1xxxx_01.c"
+   1:Src/system_ht32f1xxxx_01.c **** 
+   2:Src/system_ht32f1xxxx_01.c **** /**************************************************************************//**
+   3:Src/system_ht32f1xxxx_01.c ****  * @file    library/Device/Holtek/HT32F1xxxx/Source/system_ht32f1xxxx_01.c
+   4:Src/system_ht32f1xxxx_01.c ****  * @brief   CMSIS Cortex-M3 Device Peripheral Access Layer Source File
+   5:Src/system_ht32f1xxxx_01.c ****  *          for the Holtek HT32F165x Device Series
+   6:Src/system_ht32f1xxxx_01.c ****  * @version $Rev:: 1907         $
+   7:Src/system_ht32f1xxxx_01.c ****  * @date    $Date:: 2019-11-20 #$
+   8:Src/system_ht32f1xxxx_01.c ****  *
+   9:Src/system_ht32f1xxxx_01.c ****  * @note
+  10:Src/system_ht32f1xxxx_01.c ****  * Copyright (C) Holtek Semiconductor Inc. All rights reserved.
+  11:Src/system_ht32f1xxxx_01.c ****  *
+  12:Src/system_ht32f1xxxx_01.c ****  * @par
+  13:Src/system_ht32f1xxxx_01.c ****  * ARM Limited (ARM) supplies this software for Cortex-M processor-based
+  14:Src/system_ht32f1xxxx_01.c ****  * microcontrollers. This file can be freely distributed within development
+  15:Src/system_ht32f1xxxx_01.c ****  * tools that are supporting such ARM based processors.
+  16:Src/system_ht32f1xxxx_01.c ****  *
+  17:Src/system_ht32f1xxxx_01.c ****  * @par
+  18:Src/system_ht32f1xxxx_01.c ****  * THIS SOFTWARE IS PROVIDED "AS IS".  NO WARRANTIES, WHETHER EXPRESS, IMPLIED
+  19:Src/system_ht32f1xxxx_01.c ****  * OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF
+  20:Src/system_ht32f1xxxx_01.c ****  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE.
+  21:Src/system_ht32f1xxxx_01.c ****  * ARM SHALL NOT, IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR
+  22:Src/system_ht32f1xxxx_01.c ****  * CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
+  23:Src/system_ht32f1xxxx_01.c ****  *
+  24:Src/system_ht32f1xxxx_01.c ****  ******************************************************************************/
+  25:Src/system_ht32f1xxxx_01.c **** 
+  26:Src/system_ht32f1xxxx_01.c **** // Supported Device
+  27:Src/system_ht32f1xxxx_01.c **** // ========================================
+  28:Src/system_ht32f1xxxx_01.c **** //   HT32F1653, HT32F1654
+  29:Src/system_ht32f1xxxx_01.c **** //   HT32F1655, HT32F1656
+  30:Src/system_ht32f1xxxx_01.c **** 
+  31:Src/system_ht32f1xxxx_01.c **** /** @addtogroup CMSIS
+  32:Src/system_ht32f1xxxx_01.c ****   * @{
+ARM GAS  /tmp/ccNa0U7i.s 			page 2
+
+
+  33:Src/system_ht32f1xxxx_01.c ****   */
+  34:Src/system_ht32f1xxxx_01.c **** 
+  35:Src/system_ht32f1xxxx_01.c **** /** @addtogroup HT32F1xxxx_system HT32F1xxxx System
+  36:Src/system_ht32f1xxxx_01.c ****   * @{
+  37:Src/system_ht32f1xxxx_01.c ****   */
+  38:Src/system_ht32f1xxxx_01.c **** 
+  39:Src/system_ht32f1xxxx_01.c **** 
+  40:Src/system_ht32f1xxxx_01.c **** #include "ht32f1xxxx_01.h"
+  41:Src/system_ht32f1xxxx_01.c **** 
+  42:Src/system_ht32f1xxxx_01.c **** /** @addtogroup HT32F1xxxx_System_Private_Defines
+  43:Src/system_ht32f1xxxx_01.c ****   * @{
+  44:Src/system_ht32f1xxxx_01.c ****   */
+  45:Src/system_ht32f1xxxx_01.c **** /*
+  46:Src/system_ht32f1xxxx_01.c **** //-------- <<< Use Configuration Wizard in Context Menu >>> ------------------
+  47:Src/system_ht32f1xxxx_01.c **** */
+  48:Src/system_ht32f1xxxx_01.c **** 
+  49:Src/system_ht32f1xxxx_01.c **** /*--------------------- Clock Configuration ----------------------------------
+  50:Src/system_ht32f1xxxx_01.c **** //
+  51:Src/system_ht32f1xxxx_01.c **** //    <q0> Enable High Speed Internal RC Oscillator (HSI)
+  52:Src/system_ht32f1xxxx_01.c **** //          <i> Default HSI = ENABLE
+  53:Src/system_ht32f1xxxx_01.c **** //
+  54:Src/system_ht32f1xxxx_01.c **** //    <q1> Enable High Speed External Crystal Oscillator (HSE)
+  55:Src/system_ht32f1xxxx_01.c **** //          <i> Default HSE = DISABLE
+  56:Src/system_ht32f1xxxx_01.c **** //
+  57:Src/system_ht32f1xxxx_01.c **** //    <q3> Enable Low Speed External Crystal Oscillator (LSE)
+  58:Src/system_ht32f1xxxx_01.c **** //          <i> Default LSE = DISABLE
+  59:Src/system_ht32f1xxxx_01.c **** //
+  60:Src/system_ht32f1xxxx_01.c **** //    <e4> Enable PLL
+  61:Src/system_ht32f1xxxx_01.c **** //                <i> Default PLL = DISABLE
+  62:Src/system_ht32f1xxxx_01.c **** //                <i> PLL Out = ((HSE or HSI) x NF2 ) / NO2
+  63:Src/system_ht32f1xxxx_01.c **** //        <o5>  PLL Clock Source
+  64:Src/system_ht32f1xxxx_01.c **** //                <0=> CK_HSE
+  65:Src/system_ht32f1xxxx_01.c **** //                <1=> CK_HSI
+  66:Src/system_ht32f1xxxx_01.c **** //                <i> Default PLL clock source = CK_HSI
+  67:Src/system_ht32f1xxxx_01.c **** //                <i> PLL source clock must be in the range of 4 MHz to 16 MHz
+  68:Src/system_ht32f1xxxx_01.c **** //        <o6>  PLL Feedback Clock Divider (NF2): 1 ~ 64
+  69:Src/system_ht32f1xxxx_01.c **** //                <1-64:1>
+  70:Src/system_ht32f1xxxx_01.c **** //                <i> PLL feedback clock = PLL clock source x NF2
+  71:Src/system_ht32f1xxxx_01.c **** //                <i> PLL feedback clock must be in the range of 64 MHz to 144 MHz
+  72:Src/system_ht32f1xxxx_01.c **** //        <o7>  PLL Output Clock Divider (NO2)
+  73:Src/system_ht32f1xxxx_01.c **** //                <0=> 1
+  74:Src/system_ht32f1xxxx_01.c **** //                <1=> 2
+  75:Src/system_ht32f1xxxx_01.c **** //                <2=> 4
+  76:Src/system_ht32f1xxxx_01.c **** //                <3=> 8
+  77:Src/system_ht32f1xxxx_01.c **** //                <i> PLL output clock = PLL feedback clock / NO2
+  78:Src/system_ht32f1xxxx_01.c **** //                <i> PLL output clock must be in the range of 8 MHz to 144 MHz
+  79:Src/system_ht32f1xxxx_01.c **** //      </e>
+  80:Src/system_ht32f1xxxx_01.c **** //
+  81:Src/system_ht32f1xxxx_01.c **** //    <h> SystemCoreClock Configuration (CK_AHB)
+  82:Src/system_ht32f1xxxx_01.c **** //      <o8>    SystemCoreClock Source
+  83:Src/system_ht32f1xxxx_01.c **** //                <1=> CK_PLL
+  84:Src/system_ht32f1xxxx_01.c **** //                <2=> CK_HSE
+  85:Src/system_ht32f1xxxx_01.c **** //                <3=> CK_HSI
+  86:Src/system_ht32f1xxxx_01.c **** //                <i> Default SystemCoreClock source = CK_HSI
+  87:Src/system_ht32f1xxxx_01.c **** //      <o9>    SystemCoreClock Source Divider
+  88:Src/system_ht32f1xxxx_01.c **** //                <0=> 1
+  89:Src/system_ht32f1xxxx_01.c **** //                <1=> 2
+ARM GAS  /tmp/ccNa0U7i.s 			page 3
+
+
+  90:Src/system_ht32f1xxxx_01.c **** //                <2=> 4
+  91:Src/system_ht32f1xxxx_01.c **** //                <3=> 8
+  92:Src/system_ht32f1xxxx_01.c **** //                <i> Default SystemCoreClock source divider = 1
+  93:Src/system_ht32f1xxxx_01.c **** //    </h>
+  94:Src/system_ht32f1xxxx_01.c **** //
+  95:Src/system_ht32f1xxxx_01.c **** //    <h> FLASH Configuration
+  96:Src/system_ht32f1xxxx_01.c **** //      <o10>   Wait state
+  97:Src/system_ht32f1xxxx_01.c **** //                <0=> 0 WS
+  98:Src/system_ht32f1xxxx_01.c **** //                <1=> 1 WS
+  99:Src/system_ht32f1xxxx_01.c **** //                <2=> 2 WS
+ 100:Src/system_ht32f1xxxx_01.c **** //                <9=> AUTO
+ 101:Src/system_ht32f1xxxx_01.c **** //                <i> 0 WS:  1 MHz <= CK_AHB <= 24 MHz
+ 102:Src/system_ht32f1xxxx_01.c **** //                <i> 1 WS: 24 MHz <  CK_AHB <= 48 MHz
+ 103:Src/system_ht32f1xxxx_01.c **** //                <i> 2 WS: 48 MHz <  CK_AHB <= 72 MHz
+ 104:Src/system_ht32f1xxxx_01.c **** //      <q11>   Pre-fetch Buffer Enable
+ 105:Src/system_ht32f1xxxx_01.c **** //                <i> Default pre-fetch buffer = ENABLE
+ 106:Src/system_ht32f1xxxx_01.c **** //      <e12>   Branch cache Enable
+ 107:Src/system_ht32f1xxxx_01.c **** //                <i> Default branch cache = ENABLE
+ 108:Src/system_ht32f1xxxx_01.c **** //        <o13> Dcode cache-able
+ 109:Src/system_ht32f1xxxx_01.c **** //                <0=> YES
+ 110:Src/system_ht32f1xxxx_01.c **** //                <1=> NO
+ 111:Src/system_ht32f1xxxx_01.c **** //                <i> Default Dcode cache-able = NO
+ 112:Src/system_ht32f1xxxx_01.c **** //      </e>
+ 113:Src/system_ht32f1xxxx_01.c **** //    </h>
+ 114:Src/system_ht32f1xxxx_01.c **** */
+ 115:Src/system_ht32f1xxxx_01.c **** #define HSI_ENABLE        (1)     /*!< 0: DISABLE,  1: ENABLE                                      
+ 116:Src/system_ht32f1xxxx_01.c **** #define HSE_ENABLE        (1)     /*!< 0: DISABLE,  1: ENABLE                                      
+ 117:Src/system_ht32f1xxxx_01.c **** #define LSI_ENABLE        (1)     /*!< 0: DISABLE,  1: ENABLE                                      
+ 118:Src/system_ht32f1xxxx_01.c **** #define LSE_ENABLE        (0)     /*!< 0: DISABLE,  1: ENABLE                                      
+ 119:Src/system_ht32f1xxxx_01.c **** #define PLL_ENABLE        (1)     /*!< 0: DISABLE,  1: ENABLE                                      
+ 120:Src/system_ht32f1xxxx_01.c **** #define PLL_CLK_SRC       (0)     /*!< 0: HSE,      1: HSI                                         
+ 121:Src/system_ht32f1xxxx_01.c **** #define PLL_NF2_DIV       (18)    /*!< 1~64: DIV1~DIV64                                            
+ 122:Src/system_ht32f1xxxx_01.c **** #define PLL_NO2_DIV       (0)     /*!< 0: DIV1,     1: DIV2,   2: DIV4,   3: DIV8                  
+ 123:Src/system_ht32f1xxxx_01.c **** #define HCLK_SRC          (1)     /*!< 0: PLL,      1: PLL,    2: HSE,    3: HSI                   
+ 124:Src/system_ht32f1xxxx_01.c **** #define HCLK_DIV          (1)     /*!< 0: DIV1,     1: DIV2,   2: DIV4,   3: DIV8                  
+ 125:Src/system_ht32f1xxxx_01.c **** #define WAIT_STATE        (9)     /*!< 0: WS = 0,   1: WS = 1, 2: WS = 2, 3: WS = AUTO             
+ 126:Src/system_ht32f1xxxx_01.c **** #define PRE_FETCH_ENABLE  (1)     /*!< 0: DISABLE,  1: ENABLE                                      
+ 127:Src/system_ht32f1xxxx_01.c **** #define BCACHE_ENABLE     (1)     /*!< 0: DISABLE,  1: ENABLE                                      
+ 128:Src/system_ht32f1xxxx_01.c **** #define DCODE_CACHE_ABLE  (1)     /*!< 0: YES,      1: NO                                          
+ 129:Src/system_ht32f1xxxx_01.c **** #define DEINIT_ENABLE     (1)     /* Set 0 for reduce code size                                    
+ 130:Src/system_ht32f1xxxx_01.c **** 
+ 131:Src/system_ht32f1xxxx_01.c **** /*-------------------------------------------------------------------------------------------------
+ 132:Src/system_ht32f1xxxx_01.c **** /* PLL Out = ((HSE or HSI) x PLL_NF2_DIV) / PLL_NO2_DIV                                            
+ 133:Src/system_ht32f1xxxx_01.c **** /*-------------------------------------------------------------------------------------------------
+ 134:Src/system_ht32f1xxxx_01.c **** 
+ 135:Src/system_ht32f1xxxx_01.c **** 
+ 136:Src/system_ht32f1xxxx_01.c **** /*--------------------- WDT Configuration ----------------------------------
+ 137:Src/system_ht32f1xxxx_01.c **** //
+ 138:Src/system_ht32f1xxxx_01.c **** //    <e0> Enable WDT Configuration
+ 139:Src/system_ht32f1xxxx_01.c **** //      <o1> WDT Prescaler Selection
+ 140:Src/system_ht32f1xxxx_01.c **** //           <0=> CK_WDT / 1
+ 141:Src/system_ht32f1xxxx_01.c **** //           <1=> CK_WDT / 2
+ 142:Src/system_ht32f1xxxx_01.c **** //           <2=> CK_WDT / 4
+ 143:Src/system_ht32f1xxxx_01.c **** //           <3=> CK_WDT / 8
+ 144:Src/system_ht32f1xxxx_01.c **** //           <4=> CK_WDT / 16
+ 145:Src/system_ht32f1xxxx_01.c **** //           <5=> CK_WDT / 32
+ 146:Src/system_ht32f1xxxx_01.c **** //           <6=> CK_WDT / 64
+ARM GAS  /tmp/ccNa0U7i.s 			page 4
+
+
+ 147:Src/system_ht32f1xxxx_01.c **** //           <7=> CK_WDT / 128
+ 148:Src/system_ht32f1xxxx_01.c **** //      <o2> WDT Reload Value <1-4095:1>
+ 149:Src/system_ht32f1xxxx_01.c **** //      <q3> Enable WDT Reset function
+ 150:Src/system_ht32f1xxxx_01.c **** //      <o4> WDT Sleep Halt mode
+ 151:Src/system_ht32f1xxxx_01.c **** //           <0=> No halt
+ 152:Src/system_ht32f1xxxx_01.c **** //           <1=> Halt in DeepSleep1
+ 153:Src/system_ht32f1xxxx_01.c **** //           <2=> Halt in Sleep & DeepSleep1
+ 154:Src/system_ht32f1xxxx_01.c **** //   </e>
+ 155:Src/system_ht32f1xxxx_01.c **** */
+ 156:Src/system_ht32f1xxxx_01.c **** #define WDT_ENABLE        (0)     /*!< 0: DISABLE,  1: ENABLE                                      
+ 157:Src/system_ht32f1xxxx_01.c **** #define WDT_PRESCALER     (5)     /*!< 0: 1/1, 1: 1/2, 2: 1/4, 3: 1/8, 4: 1/16, 5: 1/32, 6: 1/64, 7
+ 158:Src/system_ht32f1xxxx_01.c **** #define WDT_RELOAD        (2000)  /*!< 0 ~ 4095, 12 bit                                            
+ 159:Src/system_ht32f1xxxx_01.c **** #define WDT_RESET_ENABLE  (1)     /*!< 0: No Reset, 1: Reset when WDT over flow                    
+ 160:Src/system_ht32f1xxxx_01.c **** #define WDT_SLEEP_HALT    (2)     /*!< 0: No halt,  1: Halt in DeepSleep1, 2: Halt in Sleep & DeepS
+ 161:Src/system_ht32f1xxxx_01.c **** 
+ 162:Src/system_ht32f1xxxx_01.c **** /**
+ 163:Src/system_ht32f1xxxx_01.c ****  * @brief Check HSI frequency
+ 164:Src/system_ht32f1xxxx_01.c ****  */
+ 165:Src/system_ht32f1xxxx_01.c **** #if (HSI_VALUE != 8000000UL)
+ 166:Src/system_ht32f1xxxx_01.c ****   #error "CK_HSI clock issue: must be 8 MHz!"
+ 167:Src/system_ht32f1xxxx_01.c **** #endif
+ 168:Src/system_ht32f1xxxx_01.c **** 
+ 169:Src/system_ht32f1xxxx_01.c **** /**
+ 170:Src/system_ht32f1xxxx_01.c ****  * @brief Check HSE frequency
+ 171:Src/system_ht32f1xxxx_01.c ****  */
+ 172:Src/system_ht32f1xxxx_01.c **** #if ((HSE_VALUE < 4000000UL) || (HSE_VALUE > 16000000UL))
+ 173:Src/system_ht32f1xxxx_01.c ****   #error "CK_HSE clock issue: must be in the range of 4 MHz to 16 MHz!"
+ 174:Src/system_ht32f1xxxx_01.c **** #endif
+ 175:Src/system_ht32f1xxxx_01.c **** 
+ 176:Src/system_ht32f1xxxx_01.c **** /**
+ 177:Src/system_ht32f1xxxx_01.c ****  * @brief Check LSI frequency
+ 178:Src/system_ht32f1xxxx_01.c ****  */
+ 179:Src/system_ht32f1xxxx_01.c **** #if (LSI_VALUE != 32000UL)
+ 180:Src/system_ht32f1xxxx_01.c ****   #error "CK_LSI clock issue: must be 32 kHz!"
+ 181:Src/system_ht32f1xxxx_01.c **** #endif
+ 182:Src/system_ht32f1xxxx_01.c **** 
+ 183:Src/system_ht32f1xxxx_01.c **** /**
+ 184:Src/system_ht32f1xxxx_01.c ****  * @brief Check LSE frequency
+ 185:Src/system_ht32f1xxxx_01.c ****  */
+ 186:Src/system_ht32f1xxxx_01.c **** #if (LSE_VALUE != 32768UL)
+ 187:Src/system_ht32f1xxxx_01.c ****   #error "CK_LSE clock issue: must be 32.768 kHz!"
+ 188:Src/system_ht32f1xxxx_01.c **** #endif
+ 189:Src/system_ht32f1xxxx_01.c **** 
+ 190:Src/system_ht32f1xxxx_01.c **** /**
+ 191:Src/system_ht32f1xxxx_01.c ****  * @brief CK_PLL definition
+ 192:Src/system_ht32f1xxxx_01.c ****  */
+ 193:Src/system_ht32f1xxxx_01.c **** #if (PLL_ENABLE == 1)
+ 194:Src/system_ht32f1xxxx_01.c ****   /* Get CK_VCO frequency                                                                          
+ 195:Src/system_ht32f1xxxx_01.c ****   #if (PLL_CLK_SRC == 1)
+ 196:Src/system_ht32f1xxxx_01.c ****     #if (HSI_ENABLE == 0)
+ 197:Src/system_ht32f1xxxx_01.c ****       #error "CK_PLL clock source issue: HSI has not been enabled"
+ 198:Src/system_ht32f1xxxx_01.c ****     #else
+ 199:Src/system_ht32f1xxxx_01.c ****       #define __CK_VCO    (HSI_VALUE * PLL_NF2_DIV)             /*!< Select HSI as PLL source      
+ 200:Src/system_ht32f1xxxx_01.c ****     #endif
+ 201:Src/system_ht32f1xxxx_01.c ****   #else
+ 202:Src/system_ht32f1xxxx_01.c ****     #if (HSE_ENABLE == 0)
+ 203:Src/system_ht32f1xxxx_01.c ****       #error "CK_PLL clock source issue: HSE has not been enabled!"
+ARM GAS  /tmp/ccNa0U7i.s 			page 5
+
+
+ 204:Src/system_ht32f1xxxx_01.c ****     #else
+ 205:Src/system_ht32f1xxxx_01.c ****       #define __CK_VCO    (HSE_VALUE * PLL_NF2_DIV)             /*!< Select HSE as PLL source      
+ 206:Src/system_ht32f1xxxx_01.c ****     #endif
+ 207:Src/system_ht32f1xxxx_01.c ****   #endif
+ 208:Src/system_ht32f1xxxx_01.c **** 
+ 209:Src/system_ht32f1xxxx_01.c ****   #define VCO_MIN 64000000UL
+ 210:Src/system_ht32f1xxxx_01.c ****   #define VCO_MAX 144000000UL
+ 211:Src/system_ht32f1xxxx_01.c ****   #define PLL_MIN  8000000UL
+ 212:Src/system_ht32f1xxxx_01.c ****   #define PLL_MAX 144000000UL
+ 213:Src/system_ht32f1xxxx_01.c **** 
+ 214:Src/system_ht32f1xxxx_01.c ****   /* Check CK_VCO frequency                                                                        
+ 215:Src/system_ht32f1xxxx_01.c ****   #if ((__CK_VCO < VCO_MIN) || (__CK_VCO > VCO_MAX))
+ 216:Src/system_ht32f1xxxx_01.c ****     #error "CK_VCO clock issue: must be in the range!"
+ 217:Src/system_ht32f1xxxx_01.c ****   #endif
+ 218:Src/system_ht32f1xxxx_01.c **** 
+ 219:Src/system_ht32f1xxxx_01.c ****   #define __CK_PLL    (__CK_VCO >> PLL_NO2_DIV)                 /*!< Get CK_PLL frequency          
+ 220:Src/system_ht32f1xxxx_01.c **** 
+ 221:Src/system_ht32f1xxxx_01.c ****   /* Check CK_PLL frequency                                                                        
+ 222:Src/system_ht32f1xxxx_01.c ****   #if ((__CK_PLL < PLL_MIN) || (__CK_PLL > PLL_MAX))
+ 223:Src/system_ht32f1xxxx_01.c ****     #error "CK_PLL clock issue: must be in the range!"
+ 224:Src/system_ht32f1xxxx_01.c ****   #endif
+ 225:Src/system_ht32f1xxxx_01.c **** #endif
+ 226:Src/system_ht32f1xxxx_01.c **** 
+ 227:Src/system_ht32f1xxxx_01.c **** /**
+ 228:Src/system_ht32f1xxxx_01.c ****  * @brief CK_SYS definition
+ 229:Src/system_ht32f1xxxx_01.c ****  */
+ 230:Src/system_ht32f1xxxx_01.c **** #if (HCLK_SRC == 1)
+ 231:Src/system_ht32f1xxxx_01.c ****   #if (PLL_ENABLE == 1)
+ 232:Src/system_ht32f1xxxx_01.c ****     #define __CK_SYS    __CK_PLL              /*!< Select PLL as CK_SYS source                     
+ 233:Src/system_ht32f1xxxx_01.c ****   #else
+ 234:Src/system_ht32f1xxxx_01.c ****     #error "CK_SYS clock source issue: PLL is not enable!"
+ 235:Src/system_ht32f1xxxx_01.c ****   #endif
+ 236:Src/system_ht32f1xxxx_01.c **** #elif (HCLK_SRC == 2)
+ 237:Src/system_ht32f1xxxx_01.c ****   #if (HSE_ENABLE == 1)
+ 238:Src/system_ht32f1xxxx_01.c ****     #define __CK_SYS    HSE_VALUE             /*!< Select HSE as CK_SYS source                     
+ 239:Src/system_ht32f1xxxx_01.c ****   #else
+ 240:Src/system_ht32f1xxxx_01.c ****     #error "CK_SYS clock source issue: HSE is not enable!"
+ 241:Src/system_ht32f1xxxx_01.c ****   #endif
+ 242:Src/system_ht32f1xxxx_01.c **** #elif (HCLK_SRC == 3)
+ 243:Src/system_ht32f1xxxx_01.c ****   #if (HSI_ENABLE == 1)
+ 244:Src/system_ht32f1xxxx_01.c ****     #define __CK_SYS    HSI_VALUE             /*!< Select HSI as CK_SYS source                     
+ 245:Src/system_ht32f1xxxx_01.c ****   #else
+ 246:Src/system_ht32f1xxxx_01.c ****     #error "CK_SYS clock source issue: HSI is not enable!"
+ 247:Src/system_ht32f1xxxx_01.c ****   #endif
+ 248:Src/system_ht32f1xxxx_01.c **** #endif
+ 249:Src/system_ht32f1xxxx_01.c **** 
+ 250:Src/system_ht32f1xxxx_01.c **** /**
+ 251:Src/system_ht32f1xxxx_01.c ****  * @brief CK_AHB definition
+ 252:Src/system_ht32f1xxxx_01.c ****  */
+ 253:Src/system_ht32f1xxxx_01.c **** #define __CK_AHB    (__CK_SYS >> HCLK_DIV)    /*!< Get CK_AHB frequency                            
+ 254:Src/system_ht32f1xxxx_01.c **** 
+ 255:Src/system_ht32f1xxxx_01.c **** #define CKAHB_MIN 1000000UL
+ 256:Src/system_ht32f1xxxx_01.c **** #define CKAHB_MAX 72000000UL
+ 257:Src/system_ht32f1xxxx_01.c **** #define WS0_CLK   24000000UL
+ 258:Src/system_ht32f1xxxx_01.c **** #define WS1_CLK   48000000UL
+ 259:Src/system_ht32f1xxxx_01.c **** 
+ 260:Src/system_ht32f1xxxx_01.c **** /* Check CK_AHB frequency                                                                          
+ARM GAS  /tmp/ccNa0U7i.s 			page 6
+
+
+ 261:Src/system_ht32f1xxxx_01.c **** #if ((__CK_AHB < CKAHB_MIN) || (__CK_AHB > CKAHB_MAX))
+ 262:Src/system_ht32f1xxxx_01.c ****   #error "CK_AHB clock issue: must be in the range!"
+ 263:Src/system_ht32f1xxxx_01.c **** #endif
+ 264:Src/system_ht32f1xxxx_01.c **** 
+ 265:Src/system_ht32f1xxxx_01.c **** /* Check FLASH wait-state setting                                                                  
+ 266:Src/system_ht32f1xxxx_01.c **** #if ((__CK_AHB > WS1_CLK) && (WAIT_STATE < 2) || \
+ 267:Src/system_ht32f1xxxx_01.c ****      (__CK_AHB > WS0_CLK) && (WAIT_STATE < 1))
+ 268:Src/system_ht32f1xxxx_01.c ****   #error "FLASH wait state configuration issue!"
+ 269:Src/system_ht32f1xxxx_01.c **** #endif
+ 270:Src/system_ht32f1xxxx_01.c **** /**
+ 271:Src/system_ht32f1xxxx_01.c ****   * @}
+ 272:Src/system_ht32f1xxxx_01.c ****   */
+ 273:Src/system_ht32f1xxxx_01.c **** 
+ 274:Src/system_ht32f1xxxx_01.c **** /** @addtogroup HT32F1xxxx_System_Private_Variables
+ 275:Src/system_ht32f1xxxx_01.c ****   * @{
+ 276:Src/system_ht32f1xxxx_01.c ****   */
+ 277:Src/system_ht32f1xxxx_01.c **** __IO uint32_t SystemCoreClock = __CK_AHB;   /*!< SystemCoreClock = CK_AHB                          
+ 278:Src/system_ht32f1xxxx_01.c **** /**
+ 279:Src/system_ht32f1xxxx_01.c ****   * @}
+ 280:Src/system_ht32f1xxxx_01.c ****   */
+ 281:Src/system_ht32f1xxxx_01.c **** 
+ 282:Src/system_ht32f1xxxx_01.c **** /** @addtogroup HT32F1xxxx_System_Private_Functions
+ 283:Src/system_ht32f1xxxx_01.c ****   * @{
+ 284:Src/system_ht32f1xxxx_01.c ****   */
+ 285:Src/system_ht32f1xxxx_01.c ****  
+ 286:Src/system_ht32f1xxxx_01.c **** /**
+ 287:Src/system_ht32f1xxxx_01.c ****   * @brief  Setup the microcontroller system.
+ 288:Src/system_ht32f1xxxx_01.c ****   *         Initializes the system clocks and the embedded Flash.
+ 289:Src/system_ht32f1xxxx_01.c ****   * @note   This function should be used after reset.
+ 290:Src/system_ht32f1xxxx_01.c ****   * @retval None
+ 291:Src/system_ht32f1xxxx_01.c ****   */
+ 292:Src/system_ht32f1xxxx_01.c **** void SystemInit(void)
+ 293:Src/system_ht32f1xxxx_01.c **** {
+  27              		.loc 1 293 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+ 294:Src/system_ht32f1xxxx_01.c **** #if (WDT_ENABLE == 1)
+ 295:Src/system_ht32f1xxxx_01.c ****   HT_CKCU->APBCCR1 |= (0x1 << 4);
+ 296:Src/system_ht32f1xxxx_01.c ****   HT_WDT->PR = 0x35CA;
+ 297:Src/system_ht32f1xxxx_01.c ****   HT_WDT->MR0 = 0;
+ 298:Src/system_ht32f1xxxx_01.c ****   HT_WDT->MR1 = ((HT_WDT->MR1 & 0xFFF) | (WDT_PRESCALER << 12));
+ 299:Src/system_ht32f1xxxx_01.c ****   HT_WDT->MR0 = WDT_RELOAD | (WDT_RESET_ENABLE << 13) | (WDT_SLEEP_HALT << 14) | (0x1 << 16);
+ 300:Src/system_ht32f1xxxx_01.c ****   HT_WDT->CR = 0x5FA00001;
+ 301:Src/system_ht32f1xxxx_01.c **** #else
+ 302:Src/system_ht32f1xxxx_01.c ****   #if (DEINIT_ENABLE == 1)
+ 303:Src/system_ht32f1xxxx_01.c ****   HT_RSTCU->APBPRST1 = (1 << 4);
+  32              		.loc 1 303 3 view .LVU1
+  33              		.loc 1 303 22 is_stmt 0 view .LVU2
+  34 0000 364B     		ldr	r3, .L8
+  35 0002 1022     		movs	r2, #16
+  36 0004 DA60     		str	r2, [r3, #12]
+ 304:Src/system_ht32f1xxxx_01.c ****   #endif
+ 305:Src/system_ht32f1xxxx_01.c **** #endif
+ 306:Src/system_ht32f1xxxx_01.c **** 
+ 307:Src/system_ht32f1xxxx_01.c ****   HT_CKCU->LPCR = 1;                                            /* configure Backup domain isolatio
+ARM GAS  /tmp/ccNa0U7i.s 			page 7
+
+
+  37              		.loc 1 307 3 is_stmt 1 view .LVU3
+  38              		.loc 1 307 17 is_stmt 0 view .LVU4
+  39 0006 0123     		movs	r3, #1
+  40 0008 354A     		ldr	r2, .L8+4
+  41 000a C2F80033 		str	r3, [r2, #768]
+ 308:Src/system_ht32f1xxxx_01.c ****   SetBit_BB((u32)(&HT_CKCU->APBCCR1), 6);                       /* enable Backup domain register cl
+  42              		.loc 1 308 3 is_stmt 1 view .LVU5
+  43 000e 354A     		ldr	r2, .L8+8
+  44 0010 1360     		str	r3, [r2]
+ 309:Src/system_ht32f1xxxx_01.c ****   while (HT_PWRCU->TEST != 0x27);                               /* wait for Backup domain register 
+  45              		.loc 1 309 3 view .LVU6
+  46              	.L2:
+  47              		.loc 1 309 33 discriminator 1 view .LVU7
+  48              		.loc 1 309 9 discriminator 1 view .LVU8
+  49              		.loc 1 309 18 is_stmt 0 discriminator 1 view .LVU9
+  50 0012 354B     		ldr	r3, .L8+12
+  51 0014 9B68     		ldr	r3, [r3, #8]
+  52              		.loc 1 309 9 discriminator 1 view .LVU10
+  53 0016 272B     		cmp	r3, #39
+  54 0018 FBD1     		bne	.L2
+ 310:Src/system_ht32f1xxxx_01.c **** 
+ 311:Src/system_ht32f1xxxx_01.c ****   #if (DEINIT_ENABLE == 1)
+ 312:Src/system_ht32f1xxxx_01.c ****   /* De-init the setting                                                                           
+ 313:Src/system_ht32f1xxxx_01.c ****   HT_CKCU->AHBCCR &= ~(0x3 << 10);                              /* disable IP who may use PLL as so
+  55              		.loc 1 313 3 is_stmt 1 view .LVU11
+  56              		.loc 1 313 19 is_stmt 0 view .LVU12
+  57 001a 314A     		ldr	r2, .L8+4
+  58 001c 536A     		ldr	r3, [r2, #36]
+  59 001e 23F44063 		bic	r3, r3, #3072
+  60 0022 5362     		str	r3, [r2, #36]
+ 314:Src/system_ht32f1xxxx_01.c ****   SetBit_BB((u32)(&HT_CKCU->GCCR), 11);                         /* enable HSI                      
+  61              		.loc 1 314 3 is_stmt 1 view .LVU13
+  62 0024 314B     		ldr	r3, .L8+16
+  63 0026 0122     		movs	r2, #1
+  64 0028 1A60     		str	r2, [r3]
+ 315:Src/system_ht32f1xxxx_01.c ****   while (!GetBit_BB((u32)(&HT_CKCU->GCSR), 3));                 /* wait for HSI ready              
+  65              		.loc 1 315 3 view .LVU14
+  66              	.L3:
+  67              		.loc 1 315 47 discriminator 1 view .LVU15
+  68              		.loc 1 315 9 discriminator 1 view .LVU16
+  69              		.loc 1 315 11 is_stmt 0 discriminator 1 view .LVU17
+  70 002a 314B     		ldr	r3, .L8+20
+  71 002c 1B68     		ldr	r3, [r3]
+  72              		.loc 1 315 9 discriminator 1 view .LVU18
+  73 002e 002B     		cmp	r3, #0
+  74 0030 FBD0     		beq	.L3
+ 316:Src/system_ht32f1xxxx_01.c ****   HT_CKCU->GCCR = ((HT_CKCU->GCCR & ~7UL) | 3UL);               /* select CK_SYS source            
+  75              		.loc 1 316 3 is_stmt 1 view .LVU19
+  76              		.loc 1 316 28 is_stmt 0 view .LVU20
+  77 0032 2B4A     		ldr	r2, .L8+4
+  78 0034 5368     		ldr	r3, [r2, #4]
+  79              		.loc 1 316 35 view .LVU21
+  80 0036 23F00703 		bic	r3, r3, #7
+  81              		.loc 1 316 43 view .LVU22
+  82 003a 43F00303 		orr	r3, r3, #3
+  83              		.loc 1 316 17 view .LVU23
+  84 003e 5360     		str	r3, [r2, #4]
+ARM GAS  /tmp/ccNa0U7i.s 			page 8
+
+
+ 317:Src/system_ht32f1xxxx_01.c ****   while (((HT_CKCU->CKST >> 30) & 3UL) != 3UL);                 /* wait for clock switch complete  
+  85              		.loc 1 317 3 is_stmt 1 view .LVU24
+  86              	.L4:
+  87              		.loc 1 317 47 discriminator 1 view .LVU25
+  88              		.loc 1 317 9 discriminator 1 view .LVU26
+  89              		.loc 1 317 19 is_stmt 0 discriminator 1 view .LVU27
+  90 0040 274B     		ldr	r3, .L8+4
+  91 0042 5B6B     		ldr	r3, [r3, #52]
+  92              		.loc 1 317 26 discriminator 1 view .LVU28
+  93 0044 9B0F     		lsrs	r3, r3, #30
+  94              		.loc 1 317 9 discriminator 1 view .LVU29
+  95 0046 032B     		cmp	r3, #3
+  96 0048 FAD1     		bne	.L4
+ 318:Src/system_ht32f1xxxx_01.c ****   HT_FLASH->CFCR = (((HT_FLASH->CFCR) & ~7UL) | 1UL);           /* set Wait State as 0 WS          
+  97              		.loc 1 318 3 is_stmt 1 view .LVU30
+  98              		.loc 1 318 31 is_stmt 0 view .LVU31
+  99 004a 2A4A     		ldr	r2, .L8+24
+ 100 004c D2F80032 		ldr	r3, [r2, #512]
+ 101              		.loc 1 318 39 view .LVU32
+ 102 0050 23F00703 		bic	r3, r3, #7
+ 103              		.loc 1 318 47 view .LVU33
+ 104 0054 43F00103 		orr	r3, r3, #1
+ 105              		.loc 1 318 18 view .LVU34
+ 106 0058 C2F80032 		str	r3, [r2, #512]
+ 319:Src/system_ht32f1xxxx_01.c ****   HT_CKCU->AHBCFGR = 0;                                         /* set CK_AHB prescaler            
+ 107              		.loc 1 319 3 is_stmt 1 view .LVU35
+ 108              		.loc 1 319 20 is_stmt 0 view .LVU36
+ 109 005c 0023     		movs	r3, #0
+ 110 005e 02F50042 		add	r2, r2, #32768
+ 111 0062 1362     		str	r3, [r2, #32]
+ 320:Src/system_ht32f1xxxx_01.c ****   ResetBit_BB((u32)(&HT_CKCU->GCCR), 9);                        /* disable PLL                     
+ 112              		.loc 1 320 3 is_stmt 1 view .LVU37
+ 113 0064 244A     		ldr	r2, .L8+28
+ 114 0066 1360     		str	r3, [r2]
+ 321:Src/system_ht32f1xxxx_01.c ****   SetBit_BB((u32)(&HT_CKCU->GCFGR), 8);                         /* select PLL source as HSI        
+ 115              		.loc 1 321 3 view .LVU38
+ 116 0068 0123     		movs	r3, #1
+ 117 006a 843A     		subs	r2, r2, #132
+ 118 006c 1360     		str	r3, [r2]
+ 322:Src/system_ht32f1xxxx_01.c ****   #endif
+ 323:Src/system_ht32f1xxxx_01.c **** 
+ 324:Src/system_ht32f1xxxx_01.c ****   /* HSE initiation                                                                                
+ 325:Src/system_ht32f1xxxx_01.c **** #if (HSE_ENABLE == 1)
+ 326:Src/system_ht32f1xxxx_01.c ****   SetBit_BB((u32)(&HT_CKCU->GCCR), 10);                         /* enable HSE                      
+ 119              		.loc 1 326 3 view .LVU39
+ 120 006e 8832     		adds	r2, r2, #136
+ 121 0070 1360     		str	r3, [r2]
+ 327:Src/system_ht32f1xxxx_01.c ****   while (!GetBit_BB((u32)(&HT_CKCU->GCSR), 2));                 /* wait for HSE ready              
+ 122              		.loc 1 327 3 view .LVU40
+ 123              	.L5:
+ 124              		.loc 1 327 47 discriminator 1 view .LVU41
+ 125              		.loc 1 327 9 discriminator 1 view .LVU42
+ 126              		.loc 1 327 11 is_stmt 0 discriminator 1 view .LVU43
+ 127 0072 224B     		ldr	r3, .L8+32
+ 128 0074 1B68     		ldr	r3, [r3]
+ 129              		.loc 1 327 9 discriminator 1 view .LVU44
+ 130 0076 002B     		cmp	r3, #0
+ARM GAS  /tmp/ccNa0U7i.s 			page 9
+
+
+ 131 0078 FBD0     		beq	.L5
+ 328:Src/system_ht32f1xxxx_01.c **** #endif
+ 329:Src/system_ht32f1xxxx_01.c **** 
+ 330:Src/system_ht32f1xxxx_01.c ****   /* LSE initiation                                                                                
+ 331:Src/system_ht32f1xxxx_01.c **** #if (LSE_ENABLE == 1)
+ 332:Src/system_ht32f1xxxx_01.c ****   do {
+ 333:Src/system_ht32f1xxxx_01.c ****     SetBit_BB((u32)(&HT_RTC->CR), 3);                           /* enable LSE                      
+ 334:Src/system_ht32f1xxxx_01.c ****   } while (!GetBit_BB((u32)(&HT_RTC->CR), 3));
+ 335:Src/system_ht32f1xxxx_01.c ****   while (!GetBit_BB((u32)(&HT_CKCU->GCSR), 4));                 /* wait for LSE ready              
+ 336:Src/system_ht32f1xxxx_01.c **** #endif
+ 337:Src/system_ht32f1xxxx_01.c **** 
+ 338:Src/system_ht32f1xxxx_01.c ****   ResetBit_BB((u32)(&HT_CKCU->APBCCR1), 6);                     /* disable Backup domain register c
+ 132              		.loc 1 338 3 is_stmt 1 view .LVU45
+ 133 007a 0023     		movs	r3, #0
+ 134 007c 194A     		ldr	r2, .L8+8
+ 135 007e 1360     		str	r3, [r2]
+ 339:Src/system_ht32f1xxxx_01.c **** 
+ 340:Src/system_ht32f1xxxx_01.c ****   /* PLL initiation                                                                                
+ 341:Src/system_ht32f1xxxx_01.c **** #if (PLL_ENABLE == 1)
+ 342:Src/system_ht32f1xxxx_01.c ****   #if (PLL_CLK_SRC == 0)
+ 343:Src/system_ht32f1xxxx_01.c ****     ResetBit_BB((u32)(&HT_CKCU->GCFGR), 8);                     /* select PLL source as HSE        
+ 136              		.loc 1 343 5 view .LVU46
+ 137 0080 A2F5BF62 		sub	r2, r2, #1528
+ 138 0084 1360     		str	r3, [r2]
+ 344:Src/system_ht32f1xxxx_01.c ****   #else
+ 345:Src/system_ht32f1xxxx_01.c ****     SetBit_BB((u32)(&HT_CKCU->GCFGR), 8);                       /* select PLL source as HSI        
+ 346:Src/system_ht32f1xxxx_01.c ****   #endif
+ 347:Src/system_ht32f1xxxx_01.c ****   HT_CKCU->PLLCFGR = ((PLL_NF2_DIV & 0x3F) << 23) | (PLL_NO2_DIV << 21);  /* set PLL divider       
+ 139              		.loc 1 347 3 view .LVU47
+ 140              		.loc 1 347 20 is_stmt 0 view .LVU48
+ 141 0086 164B     		ldr	r3, .L8+4
+ 142 0088 4FF01062 		mov	r2, #150994944
+ 143 008c 9A61     		str	r2, [r3, #24]
+ 348:Src/system_ht32f1xxxx_01.c ****   SetBit_BB((u32)(&HT_CKCU->GCCR), 9);                                    /* enable PLL            
+ 144              		.loc 1 348 3 is_stmt 1 view .LVU49
+ 145 008e 1A4B     		ldr	r3, .L8+28
+ 146 0090 0122     		movs	r2, #1
+ 147 0092 1A60     		str	r2, [r3]
+ 349:Src/system_ht32f1xxxx_01.c ****   while (!GetBit_BB((u32)(&HT_CKCU->GCSR), 1)){};                         /* wait for PLL ready    
+ 148              		.loc 1 349 3 view .LVU50
+ 149              	.L6:
+ 150              		.loc 1 349 48 discriminator 1 view .LVU51
+ 151              		.loc 1 349 9 discriminator 1 view .LVU52
+ 152              		.loc 1 349 11 is_stmt 0 discriminator 1 view .LVU53
+ 153 0094 1A4B     		ldr	r3, .L8+36
+ 154 0096 1B68     		ldr	r3, [r3]
+ 155              		.loc 1 349 9 discriminator 1 view .LVU54
+ 156 0098 002B     		cmp	r3, #0
+ 157 009a FBD0     		beq	.L6
+ 158              		.loc 1 349 49 is_stmt 1 discriminator 2 view .LVU55
+ 350:Src/system_ht32f1xxxx_01.c **** #endif
+ 351:Src/system_ht32f1xxxx_01.c **** 
+ 352:Src/system_ht32f1xxxx_01.c ****   /* CK_AHB initiation                                                                             
+ 353:Src/system_ht32f1xxxx_01.c **** #if (WAIT_STATE == 9)
+ 354:Src/system_ht32f1xxxx_01.c ****   #if (__CK_AHB > WS1_CLK)
+ 355:Src/system_ht32f1xxxx_01.c ****     HT_FLASH->CFCR = (((HT_FLASH->CFCR) & ~7UL) | 3UL);         /* auto-select wait state          
+ 159              		.loc 1 355 5 discriminator 2 view .LVU56
+ARM GAS  /tmp/ccNa0U7i.s 			page 10
+
+
+ 160              		.loc 1 355 33 is_stmt 0 discriminator 2 view .LVU57
+ 161 009c 154A     		ldr	r2, .L8+24
+ 162 009e D2F80032 		ldr	r3, [r2, #512]
+ 163              		.loc 1 355 41 discriminator 2 view .LVU58
+ 164 00a2 23F00703 		bic	r3, r3, #7
+ 165              		.loc 1 355 49 discriminator 2 view .LVU59
+ 166 00a6 43F00303 		orr	r3, r3, #3
+ 167              		.loc 1 355 20 discriminator 2 view .LVU60
+ 168 00aa C2F80032 		str	r3, [r2, #512]
+ 356:Src/system_ht32f1xxxx_01.c ****   #elif (__CK_AHB > WS0_CLK)
+ 357:Src/system_ht32f1xxxx_01.c ****     HT_FLASH->CFCR = (((HT_FLASH->CFCR) & ~7UL) | 2UL);         /* auto-select wait state          
+ 358:Src/system_ht32f1xxxx_01.c ****   #endif
+ 359:Src/system_ht32f1xxxx_01.c **** #else
+ 360:Src/system_ht32f1xxxx_01.c ****   HT_FLASH->CFCR = (((HT_FLASH->CFCR) & ~7UL) | (WAIT_STATE + 1));        /* manual wait state     
+ 361:Src/system_ht32f1xxxx_01.c **** #endif
+ 362:Src/system_ht32f1xxxx_01.c **** 
+ 363:Src/system_ht32f1xxxx_01.c ****   HT_CKCU->AHBCFGR = HCLK_DIV;                                  /* set CK_AHB prescaler            
+ 169              		.loc 1 363 3 is_stmt 1 discriminator 2 view .LVU61
+ 170              		.loc 1 363 20 is_stmt 0 discriminator 2 view .LVU62
+ 171 00ae 02F50042 		add	r2, r2, #32768
+ 172 00b2 0123     		movs	r3, #1
+ 173 00b4 1362     		str	r3, [r2, #32]
+ 364:Src/system_ht32f1xxxx_01.c ****   HT_CKCU->GCCR = ((HT_CKCU->GCCR & ~3UL) | HCLK_SRC);          /* select CK_SYS source            
+ 174              		.loc 1 364 3 is_stmt 1 discriminator 2 view .LVU63
+ 175              		.loc 1 364 28 is_stmt 0 discriminator 2 view .LVU64
+ 176 00b6 5368     		ldr	r3, [r2, #4]
+ 177              		.loc 1 364 35 discriminator 2 view .LVU65
+ 178 00b8 23F00303 		bic	r3, r3, #3
+ 179              		.loc 1 364 43 discriminator 2 view .LVU66
+ 180 00bc 43F00103 		orr	r3, r3, #1
+ 181              		.loc 1 364 17 discriminator 2 view .LVU67
+ 182 00c0 5360     		str	r3, [r2, #4]
+ 365:Src/system_ht32f1xxxx_01.c ****   while (((HT_CKCU->CKST >> 30) & 3UL) != HCLK_SRC);            /* wait for clock switch complete  
+ 183              		.loc 1 365 3 is_stmt 1 discriminator 2 view .LVU68
+ 184              	.L7:
+ 185              		.loc 1 365 52 discriminator 1 view .LVU69
+ 186              		.loc 1 365 9 discriminator 1 view .LVU70
+ 187              		.loc 1 365 19 is_stmt 0 discriminator 1 view .LVU71
+ 188 00c2 074B     		ldr	r3, .L8+4
+ 189 00c4 5B6B     		ldr	r3, [r3, #52]
+ 190              		.loc 1 365 26 discriminator 1 view .LVU72
+ 191 00c6 9B0F     		lsrs	r3, r3, #30
+ 192              		.loc 1 365 9 discriminator 1 view .LVU73
+ 193 00c8 012B     		cmp	r3, #1
+ 194 00ca FAD1     		bne	.L7
+ 366:Src/system_ht32f1xxxx_01.c **** 
+ 367:Src/system_ht32f1xxxx_01.c ****   /* Pre-fetch buffer configuration                                                                
+ 368:Src/system_ht32f1xxxx_01.c **** #if (PRE_FETCH_ENABLE == 0)
+ 369:Src/system_ht32f1xxxx_01.c ****   ResetBit_BB((u32)(&HT_FLASH->CFCR), 4);               /* 0: pre-fetch disable, 1: pre-fetch enabl
+ 370:Src/system_ht32f1xxxx_01.c **** #else
+ 371:Src/system_ht32f1xxxx_01.c ****   SetBit_BB((u32)(&HT_FLASH->CFCR), 4);                 /* 0: pre-fetch disable, 1: pre-fetch enabl
+ 195              		.loc 1 371 3 is_stmt 1 view .LVU74
+ 196 00cc 0D4A     		ldr	r2, .L8+40
+ 197 00ce 1360     		str	r3, [r2]
+ 372:Src/system_ht32f1xxxx_01.c **** #endif
+ 373:Src/system_ht32f1xxxx_01.c **** 
+ 374:Src/system_ht32f1xxxx_01.c ****   /* Branch cache configuration                                                                    
+ARM GAS  /tmp/ccNa0U7i.s 			page 11
+
+
+ 375:Src/system_ht32f1xxxx_01.c **** #if (BCACHE_ENABLE == 0)
+ 376:Src/system_ht32f1xxxx_01.c ****   ResetBit_BB((u32)(&HT_FLASH->CFCR), 12);              /* 0: branch cache disable, 1: branch cache
+ 377:Src/system_ht32f1xxxx_01.c **** #else
+ 378:Src/system_ht32f1xxxx_01.c ****   SetBit_BB((u32)(&HT_FLASH->CFCR), 12);                /* 0: branch cache disable, 1: branch cache
+ 198              		.loc 1 378 3 view .LVU75
+ 199 00d0 2032     		adds	r2, r2, #32
+ 200 00d2 1360     		str	r3, [r2]
+ 379:Src/system_ht32f1xxxx_01.c ****   #if (DCODE_CACHE_ABLE == 0)
+ 380:Src/system_ht32f1xxxx_01.c ****     ResetBit_BB((u32)(&HT_FLASH->CFCR), 7);             /* 0: DCODE cache-able, 1: DCODE non cache-
+ 381:Src/system_ht32f1xxxx_01.c ****   #else
+ 382:Src/system_ht32f1xxxx_01.c ****     SetBit_BB((u32)(&HT_FLASH->CFCR), 7);               /* 0: DCODE cache-able, 1: DCODE non cache-
+ 201              		.loc 1 382 5 view .LVU76
+ 202 00d4 143A     		subs	r2, r2, #20
+ 203 00d6 1360     		str	r3, [r2]
+ 383:Src/system_ht32f1xxxx_01.c ****   #endif
+ 384:Src/system_ht32f1xxxx_01.c **** #endif
+ 385:Src/system_ht32f1xxxx_01.c **** 
+ 386:Src/system_ht32f1xxxx_01.c ****   /* HSE power down                                                                                
+ 387:Src/system_ht32f1xxxx_01.c **** #if ((HSE_ENABLE == 0) && (HCLK_SRC != 2) && ((PLL_ENABLE == 0) || (PLL_CLK_SRC == 1)))
+ 388:Src/system_ht32f1xxxx_01.c ****   ResetBit_BB((u32)(&HT_CKCU->GCCR), 10);
+ 389:Src/system_ht32f1xxxx_01.c **** #endif
+ 390:Src/system_ht32f1xxxx_01.c **** 
+ 391:Src/system_ht32f1xxxx_01.c ****   /* HSI power down                                                                                
+ 392:Src/system_ht32f1xxxx_01.c **** #if ((HSI_ENABLE == 0) && (HCLK_SRC != 3) && ((PLL_ENABLE == 0) || (PLL_CLK_SRC == 0)))
+ 393:Src/system_ht32f1xxxx_01.c ****   ResetBit_BB((u32)(&HT_CKCU->GCCR), 11);
+ 394:Src/system_ht32f1xxxx_01.c **** #endif
+ 395:Src/system_ht32f1xxxx_01.c **** }
+ 204              		.loc 1 395 1 is_stmt 0 view .LVU77
+ 205 00d8 7047     		bx	lr
+ 206              	.L9:
+ 207 00da 00BF     		.align	2
+ 208              	.L8:
+ 209 00dc 00810840 		.word	1074299136
+ 210 00e0 00800840 		.word	1074298880
+ 211 00e4 18061043 		.word	1125123608
+ 212 00e8 00A10640 		.word	1074176256
+ 213 00ec AC001043 		.word	1125122220
+ 214 00f0 0C011043 		.word	1125122316
+ 215 00f4 00000840 		.word	1074266112
+ 216 00f8 A4001043 		.word	1125122212
+ 217 00fc 08011043 		.word	1125122312
+ 218 0100 04011043 		.word	1125122308
+ 219 0104 10400043 		.word	1124089872
+ 220              		.cfi_endproc
+ 221              	.LFE66:
+ 223              		.section	.text.SystemCoreClockUpdate,"ax",%progbits
+ 224              		.align	1
+ 225              		.global	SystemCoreClockUpdate
+ 226              		.syntax unified
+ 227              		.thumb
+ 228              		.thumb_func
+ 229              		.fpu softvfp
+ 231              	SystemCoreClockUpdate:
+ 232              	.LFB67:
+ 396:Src/system_ht32f1xxxx_01.c **** 
+ 397:Src/system_ht32f1xxxx_01.c **** /**
+ 398:Src/system_ht32f1xxxx_01.c ****   * @brief  Update SystemCoreClock
+ARM GAS  /tmp/ccNa0U7i.s 			page 12
+
+
+ 399:Src/system_ht32f1xxxx_01.c ****   * @retval None
+ 400:Src/system_ht32f1xxxx_01.c ****   */
+ 401:Src/system_ht32f1xxxx_01.c **** void SystemCoreClockUpdate(void)
+ 402:Src/system_ht32f1xxxx_01.c **** {
+ 233              		.loc 1 402 1 is_stmt 1 view -0
+ 234              		.cfi_startproc
+ 235              		@ args = 0, pretend = 0, frame = 0
+ 236              		@ frame_needed = 0, uses_anonymous_args = 0
+ 237              		@ link register save eliminated.
+ 238 0000 10B4     		push	{r4}
+ 239              	.LCFI0:
+ 240              		.cfi_def_cfa_offset 4
+ 241              		.cfi_offset 4, -4
+ 403:Src/system_ht32f1xxxx_01.c ****   u32 SystemCoreClockDiv = HT_CKCU->AHBCFGR & 3UL;
+ 242              		.loc 1 403 3 view .LVU79
+ 243              		.loc 1 403 35 is_stmt 0 view .LVU80
+ 244 0002 1E49     		ldr	r1, .L23
+ 245 0004 0C6A     		ldr	r4, [r1, #32]
+ 246              		.loc 1 403 7 view .LVU81
+ 247 0006 04F00304 		and	r4, r4, #3
+ 248              	.LVL0:
+ 404:Src/system_ht32f1xxxx_01.c ****   u32 PllFeedbackClockDiv = ((HT_CKCU->PLLCFGR >> 23) == 0) ? (64) : (HT_CKCU->PLLCFGR >> 23);
+ 249              		.loc 1 404 3 is_stmt 1 view .LVU82
+ 250              		.loc 1 404 38 is_stmt 0 view .LVU83
+ 251 000a 8B69     		ldr	r3, [r1, #24]
+ 252              		.loc 1 404 68 view .LVU84
+ 253 000c DB0D     		lsrs	r3, r3, #23
+ 254 000e 0FD0     		beq	.L17
+ 255              		.loc 1 404 78 discriminator 1 view .LVU85
+ 256 0010 8869     		ldr	r0, [r1, #24]
+ 257              		.loc 1 404 68 discriminator 1 view .LVU86
+ 258 0012 C00D     		lsrs	r0, r0, #23
+ 259              	.L11:
+ 260              	.LVL1:
+ 405:Src/system_ht32f1xxxx_01.c ****   u32 PllOutputClockDiv = (HT_CKCU->PLLCFGR >> 21) & 3UL;
+ 261              		.loc 1 405 3 is_stmt 1 discriminator 4 view .LVU87
+ 262              		.loc 1 405 35 is_stmt 0 discriminator 4 view .LVU88
+ 263 0014 1949     		ldr	r1, .L23
+ 264 0016 8A69     		ldr	r2, [r1, #24]
+ 265              		.loc 1 405 7 discriminator 4 view .LVU89
+ 266 0018 C2F34152 		ubfx	r2, r2, #21, #2
+ 267              	.LVL2:
+ 406:Src/system_ht32f1xxxx_01.c ****   u32 SystemCoreClockSrc = (HT_CKCU->CKST >> 30) & 3UL;
+ 268              		.loc 1 406 3 is_stmt 1 discriminator 4 view .LVU90
+ 269              		.loc 1 406 36 is_stmt 0 discriminator 4 view .LVU91
+ 270 001c 4B6B     		ldr	r3, [r1, #52]
+ 271              		.loc 1 406 43 discriminator 4 view .LVU92
+ 272 001e 9B0F     		lsrs	r3, r3, #30
+ 273              	.LVL3:
+ 407:Src/system_ht32f1xxxx_01.c **** 
+ 408:Src/system_ht32f1xxxx_01.c ****   /* Get system core clock according to global clock control & configuration registers             
+ 409:Src/system_ht32f1xxxx_01.c ****   if (SystemCoreClockSrc == 1)
+ 274              		.loc 1 409 3 is_stmt 1 discriminator 4 view .LVU93
+ 275              		.loc 1 409 6 is_stmt 0 discriminator 4 view .LVU94
+ 276 0020 012B     		cmp	r3, #1
+ 277 0022 07D0     		beq	.L20
+ 410:Src/system_ht32f1xxxx_01.c ****   {
+ARM GAS  /tmp/ccNa0U7i.s 			page 13
+
+
+ 411:Src/system_ht32f1xxxx_01.c ****     if (GetBit_BB((u32)(&HT_CKCU->PLLCR), 31))
+ 412:Src/system_ht32f1xxxx_01.c ****     {
+ 413:Src/system_ht32f1xxxx_01.c ****       PllFeedbackClockDiv = 1;
+ 414:Src/system_ht32f1xxxx_01.c ****       PllOutputClockDiv = 0;
+ 415:Src/system_ht32f1xxxx_01.c ****     }
+ 416:Src/system_ht32f1xxxx_01.c **** 
+ 417:Src/system_ht32f1xxxx_01.c ****     if (GetBit_BB((u32)(&HT_CKCU->GCFGR), 8))
+ 418:Src/system_ht32f1xxxx_01.c ****     {
+ 419:Src/system_ht32f1xxxx_01.c ****       SystemCoreClock = ((HSI_VALUE * PllFeedbackClockDiv) >> PllOutputClockDiv) >> SystemCoreClock
+ 420:Src/system_ht32f1xxxx_01.c ****     }
+ 421:Src/system_ht32f1xxxx_01.c ****     else
+ 422:Src/system_ht32f1xxxx_01.c ****     {
+ 423:Src/system_ht32f1xxxx_01.c ****       SystemCoreClock = ((HSE_VALUE * PllFeedbackClockDiv) >> PllOutputClockDiv) >> SystemCoreClock
+ 424:Src/system_ht32f1xxxx_01.c ****     }
+ 425:Src/system_ht32f1xxxx_01.c ****   }
+ 426:Src/system_ht32f1xxxx_01.c ****   else if (SystemCoreClockSrc == 2)
+ 278              		.loc 1 426 8 is_stmt 1 view .LVU95
+ 279              		.loc 1 426 11 is_stmt 0 view .LVU96
+ 280 0024 022B     		cmp	r3, #2
+ 281 0026 1ED0     		beq	.L21
+ 427:Src/system_ht32f1xxxx_01.c ****   {
+ 428:Src/system_ht32f1xxxx_01.c ****     SystemCoreClock = HSE_VALUE >> SystemCoreClockDiv;
+ 429:Src/system_ht32f1xxxx_01.c ****   }
+ 430:Src/system_ht32f1xxxx_01.c ****   else if (SystemCoreClockSrc == 3)
+ 282              		.loc 1 430 8 is_stmt 1 view .LVU97
+ 283              		.loc 1 430 11 is_stmt 0 view .LVU98
+ 284 0028 032B     		cmp	r3, #3
+ 285 002a 21D0     		beq	.L22
+ 286              	.LVL4:
+ 287              	.L10:
+ 431:Src/system_ht32f1xxxx_01.c ****   {
+ 432:Src/system_ht32f1xxxx_01.c ****     SystemCoreClock = HSI_VALUE >> SystemCoreClockDiv;
+ 433:Src/system_ht32f1xxxx_01.c ****   }
+ 434:Src/system_ht32f1xxxx_01.c **** }
+ 288              		.loc 1 434 1 view .LVU99
+ 289 002c 10BC     		pop	{r4}
+ 290              	.LCFI1:
+ 291              		.cfi_remember_state
+ 292              		.cfi_restore 4
+ 293              		.cfi_def_cfa_offset 0
+ 294              	.LVL5:
+ 295              		.loc 1 434 1 view .LVU100
+ 296 002e 7047     		bx	lr
+ 297              	.LVL6:
+ 298              	.L17:
+ 299              	.LCFI2:
+ 300              		.cfi_restore_state
+ 404:Src/system_ht32f1xxxx_01.c ****   u32 PllOutputClockDiv = (HT_CKCU->PLLCFGR >> 21) & 3UL;
+ 301              		.loc 1 404 68 view .LVU101
+ 302 0030 4020     		movs	r0, #64
+ 303 0032 EFE7     		b	.L11
+ 304              	.LVL7:
+ 305              	.L20:
+ 411:Src/system_ht32f1xxxx_01.c ****     {
+ 306              		.loc 1 411 5 is_stmt 1 view .LVU102
+ 411:Src/system_ht32f1xxxx_01.c ****     {
+ 307              		.loc 1 411 9 is_stmt 0 view .LVU103
+ARM GAS  /tmp/ccNa0U7i.s 			page 14
+
+
+ 308 0034 1249     		ldr	r1, .L23+4
+ 309 0036 0968     		ldr	r1, [r1]
+ 411:Src/system_ht32f1xxxx_01.c ****     {
+ 310              		.loc 1 411 8 view .LVU104
+ 311 0038 59B9     		cbnz	r1, .L18
+ 404:Src/system_ht32f1xxxx_01.c ****   u32 PllOutputClockDiv = (HT_CKCU->PLLCFGR >> 21) & 3UL;
+ 312              		.loc 1 404 7 view .LVU105
+ 313 003a 0346     		mov	r3, r0
+ 314              	.LVL8:
+ 315              	.L13:
+ 417:Src/system_ht32f1xxxx_01.c ****     {
+ 316              		.loc 1 417 5 is_stmt 1 view .LVU106
+ 417:Src/system_ht32f1xxxx_01.c ****     {
+ 317              		.loc 1 417 9 is_stmt 0 view .LVU107
+ 318 003c 1149     		ldr	r1, .L23+8
+ 319 003e 0968     		ldr	r1, [r1]
+ 417:Src/system_ht32f1xxxx_01.c ****     {
+ 320              		.loc 1 417 8 view .LVU108
+ 321 0040 49B1     		cbz	r1, .L14
+ 419:Src/system_ht32f1xxxx_01.c ****     }
+ 322              		.loc 1 419 7 is_stmt 1 view .LVU109
+ 419:Src/system_ht32f1xxxx_01.c ****     }
+ 323              		.loc 1 419 37 is_stmt 0 view .LVU110
+ 324 0042 1149     		ldr	r1, .L23+12
+ 325 0044 01FB03F3 		mul	r3, r1, r3
+ 326              	.LVL9:
+ 419:Src/system_ht32f1xxxx_01.c ****     }
+ 327              		.loc 1 419 60 view .LVU111
+ 328 0048 D340     		lsrs	r3, r3, r2
+ 419:Src/system_ht32f1xxxx_01.c ****     }
+ 329              		.loc 1 419 82 view .LVU112
+ 330 004a E340     		lsrs	r3, r3, r4
+ 419:Src/system_ht32f1xxxx_01.c ****     }
+ 331              		.loc 1 419 23 view .LVU113
+ 332 004c 0F4A     		ldr	r2, .L23+16
+ 333              	.LVL10:
+ 419:Src/system_ht32f1xxxx_01.c ****     }
+ 334              		.loc 1 419 23 view .LVU114
+ 335 004e 1360     		str	r3, [r2]
+ 336 0050 ECE7     		b	.L10
+ 337              	.LVL11:
+ 338              	.L18:
+ 414:Src/system_ht32f1xxxx_01.c ****     }
+ 339              		.loc 1 414 25 view .LVU115
+ 340 0052 0022     		movs	r2, #0
+ 341              	.LVL12:
+ 414:Src/system_ht32f1xxxx_01.c ****     }
+ 342              		.loc 1 414 25 view .LVU116
+ 343 0054 F2E7     		b	.L13
+ 344              	.LVL13:
+ 345              	.L14:
+ 423:Src/system_ht32f1xxxx_01.c ****     }
+ 346              		.loc 1 423 7 is_stmt 1 view .LVU117
+ 423:Src/system_ht32f1xxxx_01.c ****     }
+ 347              		.loc 1 423 37 is_stmt 0 view .LVU118
+ 348 0056 0C49     		ldr	r1, .L23+12
+ 349 0058 01FB03F3 		mul	r3, r1, r3
+ARM GAS  /tmp/ccNa0U7i.s 			page 15
+
+
+ 350              	.LVL14:
+ 423:Src/system_ht32f1xxxx_01.c ****     }
+ 351              		.loc 1 423 60 view .LVU119
+ 352 005c D340     		lsrs	r3, r3, r2
+ 423:Src/system_ht32f1xxxx_01.c ****     }
+ 353              		.loc 1 423 82 view .LVU120
+ 354 005e E340     		lsrs	r3, r3, r4
+ 423:Src/system_ht32f1xxxx_01.c ****     }
+ 355              		.loc 1 423 23 view .LVU121
+ 356 0060 0A4A     		ldr	r2, .L23+16
+ 357              	.LVL15:
+ 423:Src/system_ht32f1xxxx_01.c ****     }
+ 358              		.loc 1 423 23 view .LVU122
+ 359 0062 1360     		str	r3, [r2]
+ 360 0064 E2E7     		b	.L10
+ 361              	.LVL16:
+ 362              	.L21:
+ 428:Src/system_ht32f1xxxx_01.c ****   }
+ 363              		.loc 1 428 5 is_stmt 1 view .LVU123
+ 428:Src/system_ht32f1xxxx_01.c ****   }
+ 364              		.loc 1 428 33 is_stmt 0 view .LVU124
+ 365 0066 084B     		ldr	r3, .L23+12
+ 366              	.LVL17:
+ 428:Src/system_ht32f1xxxx_01.c ****   }
+ 367              		.loc 1 428 33 view .LVU125
+ 368 0068 E340     		lsrs	r3, r3, r4
+ 428:Src/system_ht32f1xxxx_01.c ****   }
+ 369              		.loc 1 428 21 view .LVU126
+ 370 006a 084A     		ldr	r2, .L23+16
+ 371              	.LVL18:
+ 428:Src/system_ht32f1xxxx_01.c ****   }
+ 372              		.loc 1 428 21 view .LVU127
+ 373 006c 1360     		str	r3, [r2]
+ 374 006e DDE7     		b	.L10
+ 375              	.LVL19:
+ 376              	.L22:
+ 432:Src/system_ht32f1xxxx_01.c ****   }
+ 377              		.loc 1 432 5 is_stmt 1 view .LVU128
+ 432:Src/system_ht32f1xxxx_01.c ****   }
+ 378              		.loc 1 432 33 is_stmt 0 view .LVU129
+ 379 0070 054B     		ldr	r3, .L23+12
+ 380              	.LVL20:
+ 432:Src/system_ht32f1xxxx_01.c ****   }
+ 381              		.loc 1 432 33 view .LVU130
+ 382 0072 E340     		lsrs	r3, r3, r4
+ 432:Src/system_ht32f1xxxx_01.c ****   }
+ 383              		.loc 1 432 21 view .LVU131
+ 384 0074 054A     		ldr	r2, .L23+16
+ 385              	.LVL21:
+ 432:Src/system_ht32f1xxxx_01.c ****   }
+ 386              		.loc 1 432 21 view .LVU132
+ 387 0076 1360     		str	r3, [r2]
+ 388              		.loc 1 434 1 view .LVU133
+ 389 0078 D8E7     		b	.L10
+ 390              	.L24:
+ 391 007a 00BF     		.align	2
+ 392              	.L23:
+ARM GAS  /tmp/ccNa0U7i.s 			page 16
+
+
+ 393 007c 00800840 		.word	1074298880
+ 394 0080 FC031043 		.word	1125123068
+ 395 0084 20001043 		.word	1125122080
+ 396 0088 00127A00 		.word	8000000
+ 397 008c 00000000 		.word	.LANCHOR0
+ 398              		.cfi_endproc
+ 399              	.LFE67:
+ 401              		.global	SystemCoreClock
+ 402              		.section	.data.SystemCoreClock,"aw"
+ 403              		.align	2
+ 404              		.set	.LANCHOR0,. + 0
+ 407              	SystemCoreClock:
+ 408 0000 00A24A04 		.word	72000000
+ 409              		.text
+ 410              	.Letext0:
+ 411              		.file 2 "/mnt/d/Esp32/EspressifTools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machi
+ 412              		.file 3 "/mnt/d/Esp32/EspressifTools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_
+ 413              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 414              		.file 5 "Drivers/Device/Holtek/HT32F1xxxx/Include/system_ht32f1xxxx_01.h"
+ 415              		.file 6 "Drivers/Device/Holtek/HT32F1xxxx/Include/ht32f1xxxx_01.h"
+ 416              		.file 7 "/mnt/d/Esp32/EspressifTools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/l
+ 417              		.file 8 "/mnt/d/Esp32/EspressifTools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_
+ 418              		.file 9 "/mnt/d/Esp32/EspressifTools/gcc-arm-none-eabi-9-2019-q4-major/lib/gcc/arm-none-eabi/9.2.1
+ 419              		.file 10 "/mnt/d/Esp32/EspressifTools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/
+ 420              		.file 11 "Drivers/HT32F1xxxx_Driver/inc/ht32_rand.h"
+ARM GAS  /tmp/ccNa0U7i.s 			page 17
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 system_ht32f1xxxx_01.c
+     /tmp/ccNa0U7i.s:16     .text.SystemInit:0000000000000000 $t
+     /tmp/ccNa0U7i.s:24     .text.SystemInit:0000000000000000 SystemInit
+     /tmp/ccNa0U7i.s:209    .text.SystemInit:00000000000000dc $d
+     /tmp/ccNa0U7i.s:224    .text.SystemCoreClockUpdate:0000000000000000 $t
+     /tmp/ccNa0U7i.s:231    .text.SystemCoreClockUpdate:0000000000000000 SystemCoreClockUpdate
+     /tmp/ccNa0U7i.s:393    .text.SystemCoreClockUpdate:000000000000007c $d
+     /tmp/ccNa0U7i.s:407    .data.SystemCoreClock:0000000000000000 SystemCoreClock
+     /tmp/ccNa0U7i.s:403    .data.SystemCoreClock:0000000000000000 $d
+
+NO UNDEFINED SYMBOLS

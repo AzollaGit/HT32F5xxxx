@@ -1,0 +1,1 @@
+build/startup_ht32f1xxxx_gcc_01.o: startup_ht32f1xxxx_gcc_01.s

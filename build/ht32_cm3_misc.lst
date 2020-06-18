@@ -1,0 +1,890 @@
+ARM GAS  /tmp/ccL5L3Ke.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"ht32_cm3_misc.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.Rand_Init,"ax",%progbits
+  16              		.align	1
+  17              		.global	Rand_Init
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	Rand_Init:
+  25              	.LVL0:
+  26              	.LFB66:
+  27              		.file 1 "Drivers/HT32F1xxxx_Driver/src/ht32_rand.c"
+   1:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** /**************************************************************************************************
+   2:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  * @file    ht32_rand.c
+   3:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  * @version $Rev:: 1736         $
+   4:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  * @date    $Date:: 2019-06-25 #$
+   5:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  * @brief   The rundom number function.
+   6:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  **************************************************************************************************
+   7:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  * @attention
+   8:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  *
+   9:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  * Firmware Disclaimer Information
+  10:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  *
+  11:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  * 1. The customer hereby acknowledges and agrees that the program technical documentation, includi
+  12:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  *    code, which is supplied by Holtek Semiconductor Inc., (hereinafter referred to as "HOLTEK") i
+  13:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  *    proprietary and confidential intellectual property of HOLTEK, and is protected by copyright l
+  14:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  *    other intellectual property laws.
+  15:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  *
+  16:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  * 2. The customer hereby acknowledges and agrees that the program technical documentation, includi
+  17:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  *    code, is confidential information belonging to HOLTEK, and must not be disclosed to any third
+  18:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  *    other than HOLTEK and the customer.
+  19:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  *
+  20:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  * 3. The program technical documentation, including the code, is provided "as is" and for customer
+  21:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  *    only. After delivery by HOLTEK, the customer shall use the program technical documentation, i
+  22:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  *    the code, at their own risk. HOLTEK disclaims any expressed, implied or statutory warranties,
+  23:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  *    the warranties of merchantability, satisfactory quality and fitness for a particular purpose.
+  24:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  *
+  25:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  * <h2><center>Copyright (C) Holtek Semiconductor Inc. All rights reserved</center></h2>
+  26:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****  **************************************************************************************************
+  27:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** 
+  28:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** /* Includes ---------------------------------------------------------------------------------------
+  29:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** #include "ht32.h"
+  30:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** #include <stdlib.h>
+  31:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** 
+ARM GAS  /tmp/ccL5L3Ke.s 			page 2
+
+
+  32:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** /* Global variables -------------------------------------------------------------------------------
+  33:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** #if !(LIBCFG_ADC_V01)
+  34:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** __ALIGN4 static uc32 RandData[] =
+  35:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** {
+  36:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x4fffe92d, 0xb0844948, 0x94016a4c, 0x94006b0c,
+  37:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0xf4446a4c, 0x624c3440, 0x4d446b0c, 0x630c432c,
+  38:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x2135ea4f, 0xf004688c, 0xf5a40480, 0x608c4479,
+  39:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x2403ea42, 0x4402ea44, 0x6403ea44, 0xea42610c,
+  40:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0xea442402, 0xea444403, 0x614c6403, 0x0282eb01,
+  41:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x67142417, 0x0283eb01, 0x22016714, 0x2100f8c1,
+  42:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0xf042688a, 0x608a0280, 0x90c4f8df, 0x2004f8d9,
+  43:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x4a309202, 0x93036853, 0x73fff64f, 0x3004f8c9,
+  44:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0xf8d96053, 0x69d7601c, 0x2104f8d1, 0x0201f042,
+  45:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x2104f8c1, 0x2134f8d1, 0xd5fb0752, 0x2fb0f851,
+  46:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x0b0ff002, 0xf002684a, 0x688a0e0f, 0x0a0ff002,
+  47:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0xf00268ca, 0x690a050f, 0x040ff002, 0xf002694a,
+  48:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x698a030f, 0xf00269c9, 0xf8d0020f, 0xf8d9c000,
+  49:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x44c4801c, 0xeb064466, 0x4f164607, 0xf8d76006,
+  50:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0xea4bc01c, 0xeb06180e, 0xea4f460c, 0xea4c2c0a,
+  51:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0xea483505, 0xea480805, 0xea444404, 0xea435303,
+  52:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0xea426202, 0x9a057101, 0x44114431, 0x98026001,
+  53:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x0004f8c9, 0x60789803, 0x99014803, 0x99006241,
+  54:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0xb0086301, 0x8ff0e8bd, 0x40088000, 0x01000040,
+  55:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x400b0000, 0x400b2000
+  56:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** };
+  57:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** #else
+  58:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** __ALIGN4 static uc32 RandData[] =
+  59:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** {
+  60:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x4946b5ff, 0x6a4cb087, 0x6b0c9404, 0x6a4c9403,
+  61:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x042d2503, 0x624c432c, 0x4d416b0c, 0x630c432c,
+  62:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x68394f40, 0x2580463c, 0x402926f9, 0x1b890236,
+  63:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x021e6039, 0x04114316, 0x0619430e, 0x607e430e,
+  64:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x43160216, 0x4316041a, 0x60a6430e, 0x62212117,
+  65:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x22014934, 0x630a3140, 0x432b6823, 0x4e326023,
+  66:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x93056873, 0x685c4b31, 0x4c319406, 0x605c6074,
+  67:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x69dd69f4, 0x43136b4b, 0x4a2a634b, 0x68533280,
+  68:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0xd5fc075b, 0x463a6b3b, 0x0f1b071b, 0x6b7b9302,
+  69:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x071b6bbf, 0x073f0f1b, 0x97010f3f, 0x07176bd2,
+  70:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x680a0f3f, 0x071746bc, 0x97000f3f, 0x0717684a,
+  71:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x688a0f3f, 0x071246be, 0x0f1268c9, 0x68074e1a,
+  72:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x042d69f6, 0x193419be, 0x4d181964, 0x69ed6004,
+  73:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x011b9e02, 0x431e9f01, 0x023b042d, 0x46671964,
+  74:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x432b033d, 0x431e9f00, 0x431e043b, 0x053b4677,
+  75:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x0612431e, 0x07094316, 0x9a08430e, 0x18891931,
+  76:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x48096001, 0x60419905, 0x99064808, 0x48036041,
+  77:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x62419904, 0x63019903, 0xbdf0b00b, 0x40088000,
+  78:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x01000040, 0x40010000, 0x400b0000, 0x400b2000,
+  79:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x0000ffff
+  80:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** };
+  81:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** #endif
+  82:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** __ALIGN4 static uc32 RandData2[] =
+  83:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** {
+  84:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x4604b510, 0x18406800, 0x46216020, 0x68084a03,
+  85:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x4a034350, 0x60081880, 0xbd100840, 0x41c64e6d,
+  86:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   0x00003039
+  87:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** };
+  88:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** 
+ARM GAS  /tmp/ccL5L3Ke.s 			page 3
+
+
+  89:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** typedef void (*Randinit_TypeDef) (u32 *, u32, u32, u32);
+  90:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** u32 (*Rand_Get)(u32 *, u32);
+  91:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** 
+  92:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** /* Global functions -------------------------------------------------------------------------------
+  93:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** /**************************************************************************************************
+  94:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   * @brief  Rand init.
+  95:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   * @param  uSeed
+  96:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   * @param  uCount
+  97:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   * @param  a
+  98:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   * @param  b
+  99:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   * @retval none
+ 100:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   *************************************************************************************************
+ 101:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** void Rand_Init(u32 *uSeed, u32 uCount, u32 a, u32 b)
+ 102:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** {
+  28              		.loc 1 102 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 102 1 is_stmt 0 view .LVU1
+  33 0000 38B5     		push	{r3, r4, r5, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 16
+  36              		.cfi_offset 3, -16
+  37              		.cfi_offset 4, -12
+  38              		.cfi_offset 5, -8
+  39              		.cfi_offset 14, -4
+ 103:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   Randinit_TypeDef Randinit = (Randinit_TypeDef)((u32)RandData | 0x1);
+  40              		.loc 1 103 3 is_stmt 1 view .LVU2
+  41              	.LVL1:
+ 104:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   Rand_Get = (u32 (*)(u32 *, u32))((u32)RandData2 | 0x1);
+  42              		.loc 1 104 3 view .LVU3
+  43              		.loc 1 104 12 is_stmt 0 view .LVU4
+  44 0002 054C     		ldr	r4, .L3
+  45 0004 44F00104 		orr	r4, r4, #1
+  46 0008 044D     		ldr	r5, .L3+4
+  47 000a 2C60     		str	r4, [r5]
+ 105:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c ****   Randinit(uSeed, uCount, a, b);
+  48              		.loc 1 105 3 is_stmt 1 view .LVU5
+  49 000c 044C     		ldr	r4, .L3+8
+  50 000e 44F00104 		orr	r4, r4, #1
+  51              	.LVL2:
+  52              		.loc 1 105 3 is_stmt 0 view .LVU6
+  53 0012 A047     		blx	r4
+  54              	.LVL3:
+ 106:Drivers/HT32F1xxxx_Driver/src/ht32_rand.c **** }
+  55              		.loc 1 106 1 view .LVU7
+  56 0014 38BD     		pop	{r3, r4, r5, pc}
+  57              	.LVL4:
+  58              	.L4:
+  59              		.loc 1 106 1 view .LVU8
+  60 0016 00BF     		.align	2
+  61              	.L3:
+  62 0018 00000000 		.word	.LANCHOR1
+  63 001c 00000000 		.word	Rand_Get
+  64 0020 00000000 		.word	.LANCHOR0
+  65              		.cfi_endproc
+  66              	.LFE66:
+ARM GAS  /tmp/ccL5L3Ke.s 			page 4
+
+
+  68              		.section	.text.NVIC_SetVectorTable,"ax",%progbits
+  69              		.align	1
+  70              		.global	NVIC_SetVectorTable
+  71              		.syntax unified
+  72              		.thumb
+  73              		.thumb_func
+  74              		.fpu softvfp
+  76              	NVIC_SetVectorTable:
+  77              	.LVL5:
+  78              	.LFB67:
+  79              		.file 2 "Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c"
+   1:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** /**************************************************************************************************
+   2:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  * @file    ht32_cm3_misc.c
+   3:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  * @version $Rev:: 1379         $
+   4:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  * @date    $Date:: 2018-08-14 #$
+   5:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  * @brief   This file provides all the miscellaneous firmware functions.
+   6:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  **************************************************************************************************
+   7:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  * @attention
+   8:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  *
+   9:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  * Firmware Disclaimer Information
+  10:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  *
+  11:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  * 1. The customer hereby acknowledges and agrees that the program technical documentation, includi
+  12:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  *    code, which is supplied by Holtek Semiconductor Inc., (hereinafter referred to as "HOLTEK") i
+  13:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  *    proprietary and confidential intellectual property of HOLTEK, and is protected by copyright l
+  14:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  *    other intellectual property laws.
+  15:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  *
+  16:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  * 2. The customer hereby acknowledges and agrees that the program technical documentation, includi
+  17:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  *    code, is confidential information belonging to HOLTEK, and must not be disclosed to any third
+  18:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  *    other than HOLTEK and the customer.
+  19:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  *
+  20:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  * 3. The program technical documentation, including the code, is provided "as is" and for customer
+  21:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  *    only. After delivery by HOLTEK, the customer shall use the program technical documentation, i
+  22:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  *    the code, at their own risk. HOLTEK disclaims any expressed, implied or statutory warranties,
+  23:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  *    the warranties of merchantability, satisfactory quality and fitness for a particular purpose.
+  24:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  *
+  25:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  * <h2><center>Copyright (C) Holtek Semiconductor Inc. All rights reserved</center></h2>
+  26:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****  **************************************************************************************************
+  27:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+  28:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** /* Includes ---------------------------------------------------------------------------------------
+  29:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** #include "ht32_cm3_misc.h"
+  30:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** #include "ht32_rand.c"
+  31:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+  32:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** /** @addtogroup HT32_Peripheral_Driver HT32 Peripheral Driver
+  33:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @{
+  34:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   */
+  35:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+  36:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** /** @defgroup MISC MISC
+  37:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @brief MISC driver modules
+  38:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @{
+  39:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   */
+  40:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+  41:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+  42:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** /* Private definitions ----------------------------------------------------------------------------
+  43:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** /** @defgroup MISC_Private_Define MISC private definitions
+  44:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @{
+  45:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   */
+  46:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** #define AIRCR_VECTKEY_MASK    ((u32)0x05FA0000)
+ARM GAS  /tmp/ccL5L3Ke.s 			page 5
+
+
+  47:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** #define CTRL_TICKINT_SET      ((u32)0x00000002)
+  48:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** #define CTRL_TICKINT_RESET    ((u32)0xFFFFFFFD)
+  49:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** /**
+  50:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @}
+  51:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   */
+  52:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+  53:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** /* Global functions -------------------------------------------------------------------------------
+  54:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** /** @defgroup MISC_Exported_Functions MISC exported functions
+  55:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @{
+  56:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   */
+  57:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** /**************************************************************************************************
+  58:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @brief  Set the vector table location and Offset.
+  59:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @param  NVIC_VectTable: Specify if the vector table is in FLASH or RAM.
+  60:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *   This parameter can be one of the following values:
+  61:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *     @arg NVIC_VECTTABLE_RAM
+  62:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *     @arg NVIC_VECTTABLE_FLASH
+  63:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @param  NVIC_Offset: Vector Table base offset field.
+  64:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *   This value must be a multiple of 0x100.
+  65:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @retval None
+  66:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *************************************************************************************************
+  67:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** void NVIC_SetVectorTable(u32 NVIC_VectTable, u32 NVIC_Offset)
+  68:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** {
+  80              		.loc 2 68 1 is_stmt 1 view -0
+  81              		.cfi_startproc
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 0, uses_anonymous_args = 0
+  84              		@ link register save eliminated.
+  69:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   /* Check the parameters                                                                          
+  70:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   Assert_Param(IS_NVIC_VECTTABLE(NVIC_VectTable));
+  85              		.loc 2 70 3 view .LVU10
+  71:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   Assert_Param(IS_NVIC_OFFSET(NVIC_Offset));
+  86              		.loc 2 71 3 view .LVU11
+  72:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+  73:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   SCB->VTOR = NVIC_VectTable | (NVIC_Offset & (u32)0x1FFFFF80);
+  87              		.loc 2 73 3 view .LVU12
+  88              		.loc 2 73 45 is_stmt 0 view .LVU13
+  89 0000 21F06041 		bic	r1, r1, #-536870912
+  90              	.LVL6:
+  91              		.loc 2 73 45 view .LVU14
+  92 0004 21F07F01 		bic	r1, r1, #127
+  93              		.loc 2 73 30 view .LVU15
+  94 0008 0143     		orrs	r1, r1, r0
+  95              		.loc 2 73 13 view .LVU16
+  96 000a 014B     		ldr	r3, .L6
+  97 000c 9960     		str	r1, [r3, #8]
+  74:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** }
+  98              		.loc 2 74 1 view .LVU17
+  99 000e 7047     		bx	lr
+ 100              	.L7:
+ 101              		.align	2
+ 102              	.L6:
+ 103 0010 00ED00E0 		.word	-536810240
+ 104              		.cfi_endproc
+ 105              	.LFE67:
+ 107              		.section	.text.NVIC_LowPowerConfig,"ax",%progbits
+ 108              		.align	1
+ 109              		.global	NVIC_LowPowerConfig
+ARM GAS  /tmp/ccL5L3Ke.s 			page 6
+
+
+ 110              		.syntax unified
+ 111              		.thumb
+ 112              		.thumb_func
+ 113              		.fpu softvfp
+ 115              	NVIC_LowPowerConfig:
+ 116              	.LVL7:
+ 117              	.LFB68:
+  75:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+  76:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** /**************************************************************************************************
+  77:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @brief  Select which low power mode to execute to the system.
+  78:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @param  NVIC_LowPowerMode:  Specify the new low power mode to execute to the system.
+  79:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *   This parameter can be one of the following values:
+  80:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *     @arg NVIC_LOWPOWER_SEVONPEND
+  81:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *     @arg NVIC_LOWPOWER_SLEEPDEEP
+  82:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *     @arg NVIC_LOWPOWER_SLEEPONEXIT
+  83:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @param  NewState: new state of low power condition.
+  84:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *   This parameter can be: ENABLE or DISABLE.
+  85:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @retval None
+  86:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *************************************************************************************************
+  87:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** void NVIC_LowPowerConfig(u8 NVIC_LowPowerMode,  ControlStatus NewState)
+  88:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** {
+ 118              		.loc 2 88 1 is_stmt 1 view -0
+ 119              		.cfi_startproc
+ 120              		@ args = 0, pretend = 0, frame = 0
+ 121              		@ frame_needed = 0, uses_anonymous_args = 0
+ 122              		@ link register save eliminated.
+  89:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   /* Check the parameters                                                                          
+  90:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   Assert_Param(IS_NVIC_LOWPOWER(NVIC_LowPowerMode));
+ 123              		.loc 2 90 3 view .LVU19
+  91:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   Assert_Param(IS_CONTROL_STATUS(NewState));
+ 124              		.loc 2 91 3 view .LVU20
+  92:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+  93:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   if (NewState != DISABLE)
+ 125              		.loc 2 93 3 view .LVU21
+ 126              		.loc 2 93 6 is_stmt 0 view .LVU22
+ 127 0000 21B1     		cbz	r1, .L9
+  94:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   {
+  95:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****     SCB->SCR |= NVIC_LowPowerMode;
+ 128              		.loc 2 95 5 is_stmt 1 view .LVU23
+ 129              		.loc 2 95 14 is_stmt 0 view .LVU24
+ 130 0002 054B     		ldr	r3, .L11
+ 131 0004 1A69     		ldr	r2, [r3, #16]
+ 132 0006 1043     		orrs	r0, r0, r2
+ 133              	.LVL8:
+ 134              		.loc 2 95 14 view .LVU25
+ 135 0008 1861     		str	r0, [r3, #16]
+ 136 000a 7047     		bx	lr
+ 137              	.LVL9:
+ 138              	.L9:
+  96:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   }
+  97:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   else
+  98:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   {
+  99:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****     SCB->SCR &= (u32)(~(u32)NVIC_LowPowerMode);
+ 139              		.loc 2 99 5 is_stmt 1 view .LVU26
+ 140              		.loc 2 99 14 is_stmt 0 view .LVU27
+ 141 000c 024A     		ldr	r2, .L11
+ 142 000e 1369     		ldr	r3, [r2, #16]
+ARM GAS  /tmp/ccL5L3Ke.s 			page 7
+
+
+ 143 0010 23EA0000 		bic	r0, r3, r0
+ 144              	.LVL10:
+ 145              		.loc 2 99 14 view .LVU28
+ 146 0014 1061     		str	r0, [r2, #16]
+ 100:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   }
+ 101:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** }
+ 147              		.loc 2 101 1 view .LVU29
+ 148 0016 7047     		bx	lr
+ 149              	.L12:
+ 150              		.align	2
+ 151              	.L11:
+ 152 0018 00ED00E0 		.word	-536810240
+ 153              		.cfi_endproc
+ 154              	.LFE68:
+ 156              		.section	.text.NVIC_CoreReset,"ax",%progbits
+ 157              		.align	1
+ 158              		.global	NVIC_CoreReset
+ 159              		.syntax unified
+ 160              		.thumb
+ 161              		.thumb_func
+ 162              		.fpu softvfp
+ 164              	NVIC_CoreReset:
+ 165              	.LFB69:
+ 102:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+ 103:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** /**************************************************************************************************
+ 104:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @brief  Generate a Core (Core + NVIC) reset.
+ 105:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @retval None
+ 106:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *************************************************************************************************
+ 107:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** void NVIC_CoreReset(void)
+ 108:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** {
+ 166              		.loc 2 108 1 is_stmt 1 view -0
+ 167              		.cfi_startproc
+ 168              		@ args = 0, pretend = 0, frame = 0
+ 169              		@ frame_needed = 0, uses_anonymous_args = 0
+ 170              		@ link register save eliminated.
+ 109:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   SCB->AIRCR = AIRCR_VECTKEY_MASK | (u32)0x01;
+ 171              		.loc 2 109 3 view .LVU31
+ 172              		.loc 2 109 14 is_stmt 0 view .LVU32
+ 173 0000 014B     		ldr	r3, .L14
+ 174 0002 024A     		ldr	r2, .L14+4
+ 175 0004 DA60     		str	r2, [r3, #12]
+ 110:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** }
+ 176              		.loc 2 110 1 view .LVU33
+ 177 0006 7047     		bx	lr
+ 178              	.L15:
+ 179              		.align	2
+ 180              	.L14:
+ 181 0008 00ED00E0 		.word	-536810240
+ 182 000c 0100FA05 		.word	100270081
+ 183              		.cfi_endproc
+ 184              	.LFE69:
+ 186              		.section	.text.NVIC_SetPendingSystemHandler,"ax",%progbits
+ 187              		.align	1
+ 188              		.global	NVIC_SetPendingSystemHandler
+ 189              		.syntax unified
+ 190              		.thumb
+ 191              		.thumb_func
+ARM GAS  /tmp/ccL5L3Ke.s 			page 8
+
+
+ 192              		.fpu softvfp
+ 194              	NVIC_SetPendingSystemHandler:
+ 195              	.LVL11:
+ 196              	.LFB70:
+ 111:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+ 112:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** /**************************************************************************************************
+ 113:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @brief  Set the pending bit for a system handler.
+ 114:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @param  SystemHandler: Specify the system handler pending bit to be set.
+ 115:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *   This parameter can be one of the following values:
+ 116:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *     @arg SYSTEMHANDLER_NMI
+ 117:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *     @arg SYSTEMHANDLER_PSV
+ 118:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *     @arg SYSTEMHANDLER_SYSTICK
+ 119:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @retval None
+ 120:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *************************************************************************************************
+ 121:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** void NVIC_SetPendingSystemHandler(u32 SystemHandler)
+ 122:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** {
+ 197              		.loc 2 122 1 is_stmt 1 view -0
+ 198              		.cfi_startproc
+ 199              		@ args = 0, pretend = 0, frame = 0
+ 200              		@ frame_needed = 0, uses_anonymous_args = 0
+ 201              		@ link register save eliminated.
+ 123:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   /* Check the parameters                                                                          
+ 124:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   Assert_Param(IS_NVIC_SYSTEMHANDLER(SystemHandler));
+ 202              		.loc 2 124 3 view .LVU35
+ 125:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+ 126:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   /* Set the corresponding System Handler pending bit                                              
+ 127:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   SCB->ICSR |= SystemHandler;
+ 203              		.loc 2 127 3 view .LVU36
+ 204              		.loc 2 127 13 is_stmt 0 view .LVU37
+ 205 0000 024A     		ldr	r2, .L17
+ 206 0002 5368     		ldr	r3, [r2, #4]
+ 207 0004 0343     		orrs	r3, r3, r0
+ 208 0006 5360     		str	r3, [r2, #4]
+ 128:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** }
+ 209              		.loc 2 128 1 view .LVU38
+ 210 0008 7047     		bx	lr
+ 211              	.L18:
+ 212 000a 00BF     		.align	2
+ 213              	.L17:
+ 214 000c 00ED00E0 		.word	-536810240
+ 215              		.cfi_endproc
+ 216              	.LFE70:
+ 218              		.section	.text.SYSTICK_ClockSourceConfig,"ax",%progbits
+ 219              		.align	1
+ 220              		.global	SYSTICK_ClockSourceConfig
+ 221              		.syntax unified
+ 222              		.thumb
+ 223              		.thumb_func
+ 224              		.fpu softvfp
+ 226              	SYSTICK_ClockSourceConfig:
+ 227              	.LVL12:
+ 228              	.LFB71:
+ 129:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+ 130:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** /**************************************************************************************************
+ 131:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @brief  Configure the SysTick clock source.
+ 132:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @param  SysTick_ClockSource: Specify the SysTick clock source.
+ 133:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *   This parameter can be one of the following values:
+ARM GAS  /tmp/ccL5L3Ke.s 			page 9
+
+
+ 134:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *     @arg SYSTICK_SRC_STCLK  : External reference clock is selected as SysTick clock source.
+ 135:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *     @arg SYSTICK_SRC_FCLK   : AHB clock is selected as SysTick clock source.
+ 136:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @retval  None
+ 137:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *************************************************************************************************
+ 138:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** void SYSTICK_ClockSourceConfig(u32 SysTick_ClockSource)
+ 139:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** {
+ 229              		.loc 2 139 1 is_stmt 1 view -0
+ 230              		.cfi_startproc
+ 231              		@ args = 0, pretend = 0, frame = 0
+ 232              		@ frame_needed = 0, uses_anonymous_args = 0
+ 233              		@ link register save eliminated.
+ 140:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   /* Check the parameters                                                                          
+ 141:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   Assert_Param(IS_SYSTICK_CLOCK_SOURCE(SysTick_ClockSource));
+ 234              		.loc 2 141 3 view .LVU40
+ 142:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+ 143:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   if (SysTick_ClockSource == SYSTICK_SRC_FCLK)
+ 235              		.loc 2 143 3 view .LVU41
+ 236              		.loc 2 143 6 is_stmt 0 view .LVU42
+ 237 0000 0428     		cmp	r0, #4
+ 238 0002 05D0     		beq	.L22
+ 144:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   {
+ 145:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****     SysTick->CTRL |= SYSTICK_SRC_FCLK;
+ 146:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   }
+ 147:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   else
+ 148:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   {
+ 149:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****     SysTick->CTRL &= SYSTICK_SRC_STCLK;
+ 239              		.loc 2 149 5 is_stmt 1 view .LVU43
+ 240              		.loc 2 149 19 is_stmt 0 view .LVU44
+ 241 0004 054A     		ldr	r2, .L23
+ 242 0006 1368     		ldr	r3, [r2]
+ 243 0008 23F00403 		bic	r3, r3, #4
+ 244 000c 1360     		str	r3, [r2]
+ 150:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   }
+ 151:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** }
+ 245              		.loc 2 151 1 view .LVU45
+ 246 000e 7047     		bx	lr
+ 247              	.L22:
+ 145:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   }
+ 248              		.loc 2 145 5 is_stmt 1 view .LVU46
+ 145:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   }
+ 249              		.loc 2 145 19 is_stmt 0 view .LVU47
+ 250 0010 024A     		ldr	r2, .L23
+ 251 0012 1368     		ldr	r3, [r2]
+ 252 0014 43F00403 		orr	r3, r3, #4
+ 253 0018 1360     		str	r3, [r2]
+ 254 001a 7047     		bx	lr
+ 255              	.L24:
+ 256              		.align	2
+ 257              	.L23:
+ 258 001c 10E000E0 		.word	-536813552
+ 259              		.cfi_endproc
+ 260              	.LFE71:
+ 262              		.section	.text.SYSTICK_CounterCmd,"ax",%progbits
+ 263              		.align	1
+ 264              		.global	SYSTICK_CounterCmd
+ 265              		.syntax unified
+ 266              		.thumb
+ARM GAS  /tmp/ccL5L3Ke.s 			page 10
+
+
+ 267              		.thumb_func
+ 268              		.fpu softvfp
+ 270              	SYSTICK_CounterCmd:
+ 271              	.LVL13:
+ 272              	.LFB72:
+ 152:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+ 153:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** /**************************************************************************************************
+ 154:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @brief  Enable or Disable the SysTick counter.
+ 155:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @param  SysTick_Counter: new state of the SysTick counter.
+ 156:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *   This parameter can be one of the following values:
+ 157:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *     @arg SYSTICK_COUNTER_DISABLE  : Disable counter
+ 158:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *     @arg SYSTICK_COUNTER_ENABLE   : Enable counter
+ 159:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *     @arg SYSTICK_COUNTER_CLEAR    : Clear counter value to 0
+ 160:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @retval None
+ 161:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *************************************************************************************************
+ 162:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** void SYSTICK_CounterCmd(u32 SysTick_Counter)
+ 163:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** {
+ 273              		.loc 2 163 1 is_stmt 1 view -0
+ 274              		.cfi_startproc
+ 275              		@ args = 0, pretend = 0, frame = 0
+ 276              		@ frame_needed = 0, uses_anonymous_args = 0
+ 277              		@ link register save eliminated.
+ 164:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   /* Check the parameters                                                                          
+ 165:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   Assert_Param(IS_SYSTICK_COUNTER(SysTick_Counter));
+ 278              		.loc 2 165 3 view .LVU49
+ 166:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+ 167:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   if (SysTick_Counter == SYSTICK_COUNTER_CLEAR)
+ 279              		.loc 2 167 3 view .LVU50
+ 280              		.loc 2 167 6 is_stmt 0 view .LVU51
+ 281 0000 18B9     		cbnz	r0, .L26
+ 168:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   {
+ 169:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****     SysTick->VAL = SYSTICK_COUNTER_CLEAR;
+ 282              		.loc 2 169 5 is_stmt 1 view .LVU52
+ 283              		.loc 2 169 18 is_stmt 0 view .LVU53
+ 284 0002 094B     		ldr	r3, .L30
+ 285 0004 0022     		movs	r2, #0
+ 286 0006 9A60     		str	r2, [r3, #8]
+ 287 0008 7047     		bx	lr
+ 288              	.L26:
+ 170:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   }
+ 171:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   else
+ 172:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   {
+ 173:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****     if (SysTick_Counter == SYSTICK_COUNTER_ENABLE)
+ 289              		.loc 2 173 5 is_stmt 1 view .LVU54
+ 290              		.loc 2 173 8 is_stmt 0 view .LVU55
+ 291 000a 0128     		cmp	r0, #1
+ 292 000c 05D0     		beq	.L29
+ 174:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****     {
+ 175:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****       SysTick->CTRL |= SYSTICK_COUNTER_ENABLE;
+ 176:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****     }
+ 177:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****     else
+ 178:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****     {
+ 179:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****       SysTick->CTRL &= SYSTICK_COUNTER_DISABLE;
+ 293              		.loc 2 179 7 is_stmt 1 view .LVU56
+ 294              		.loc 2 179 21 is_stmt 0 view .LVU57
+ 295 000e 064A     		ldr	r2, .L30
+ 296 0010 1368     		ldr	r3, [r2]
+ARM GAS  /tmp/ccL5L3Ke.s 			page 11
+
+
+ 297 0012 23F00103 		bic	r3, r3, #1
+ 298 0016 1360     		str	r3, [r2]
+ 180:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****     }
+ 181:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   }
+ 182:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** }
+ 299              		.loc 2 182 1 view .LVU58
+ 300 0018 7047     		bx	lr
+ 301              	.L29:
+ 175:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****     }
+ 302              		.loc 2 175 7 is_stmt 1 view .LVU59
+ 175:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****     }
+ 303              		.loc 2 175 21 is_stmt 0 view .LVU60
+ 304 001a 034A     		ldr	r2, .L30
+ 305 001c 1368     		ldr	r3, [r2]
+ 306 001e 43F00103 		orr	r3, r3, #1
+ 307 0022 1360     		str	r3, [r2]
+ 308 0024 7047     		bx	lr
+ 309              	.L31:
+ 310 0026 00BF     		.align	2
+ 311              	.L30:
+ 312 0028 10E000E0 		.word	-536813552
+ 313              		.cfi_endproc
+ 314              	.LFE72:
+ 316              		.section	.text.SYSTICK_IntConfig,"ax",%progbits
+ 317              		.align	1
+ 318              		.global	SYSTICK_IntConfig
+ 319              		.syntax unified
+ 320              		.thumb
+ 321              		.thumb_func
+ 322              		.fpu softvfp
+ 324              	SYSTICK_IntConfig:
+ 325              	.LVL14:
+ 326              	.LFB73:
+ 183:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+ 184:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** /**************************************************************************************************
+ 185:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @brief  Enable or Disable the SysTick Interrupt.
+ 186:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @param  NewState: new state of the SysTick Interrupt.
+ 187:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 188:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @retval None
+ 189:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *************************************************************************************************
+ 190:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** void SYSTICK_IntConfig(ControlStatus NewState)
+ 191:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** {
+ 327              		.loc 2 191 1 is_stmt 1 view -0
+ 328              		.cfi_startproc
+ 329              		@ args = 0, pretend = 0, frame = 0
+ 330              		@ frame_needed = 0, uses_anonymous_args = 0
+ 331              		@ link register save eliminated.
+ 192:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   /* Check the parameters                                                                          
+ 193:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   Assert_Param(IS_CONTROL_STATUS(NewState));
+ 332              		.loc 2 193 3 view .LVU62
+ 194:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+ 195:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   if (NewState != DISABLE)
+ 333              		.loc 2 195 3 view .LVU63
+ 334              		.loc 2 195 6 is_stmt 0 view .LVU64
+ 335 0000 28B1     		cbz	r0, .L33
+ 196:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   {
+ 197:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****     SysTick->CTRL |= CTRL_TICKINT_SET;
+ARM GAS  /tmp/ccL5L3Ke.s 			page 12
+
+
+ 336              		.loc 2 197 5 is_stmt 1 view .LVU65
+ 337              		.loc 2 197 19 is_stmt 0 view .LVU66
+ 338 0002 064A     		ldr	r2, .L35
+ 339 0004 1368     		ldr	r3, [r2]
+ 340 0006 43F00203 		orr	r3, r3, #2
+ 341 000a 1360     		str	r3, [r2]
+ 342 000c 7047     		bx	lr
+ 343              	.L33:
+ 198:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   }
+ 199:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   else
+ 200:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   {
+ 201:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****     SysTick->CTRL &= CTRL_TICKINT_RESET;
+ 344              		.loc 2 201 5 is_stmt 1 view .LVU67
+ 345              		.loc 2 201 19 is_stmt 0 view .LVU68
+ 346 000e 034A     		ldr	r2, .L35
+ 347 0010 1368     		ldr	r3, [r2]
+ 348 0012 23F00203 		bic	r3, r3, #2
+ 349 0016 1360     		str	r3, [r2]
+ 202:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   }
+ 203:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** }
+ 350              		.loc 2 203 1 view .LVU69
+ 351 0018 7047     		bx	lr
+ 352              	.L36:
+ 353 001a 00BF     		.align	2
+ 354              	.L35:
+ 355 001c 10E000E0 		.word	-536813552
+ 356              		.cfi_endproc
+ 357              	.LFE73:
+ 359              		.section	.text.SYSTICK_SetReloadValue,"ax",%progbits
+ 360              		.align	1
+ 361              		.global	SYSTICK_SetReloadValue
+ 362              		.syntax unified
+ 363              		.thumb
+ 364              		.thumb_func
+ 365              		.fpu softvfp
+ 367              	SYSTICK_SetReloadValue:
+ 368              	.LVL15:
+ 369              	.LFB74:
+ 204:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+ 205:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** /**************************************************************************************************
+ 206:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @brief  Set SysTick counter reload value.
+ 207:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @param  SysTick_Reload: SysTick reload new value.
+ 208:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *   This parameter must be a number between 1 and 0xFFFFFF.
+ 209:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   * @retval None
+ 210:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   *************************************************************************************************
+ 211:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** void SYSTICK_SetReloadValue(u32 SysTick_Reload)
+ 212:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** {
+ 370              		.loc 2 212 1 is_stmt 1 view -0
+ 371              		.cfi_startproc
+ 372              		@ args = 0, pretend = 0, frame = 0
+ 373              		@ frame_needed = 0, uses_anonymous_args = 0
+ 374              		@ link register save eliminated.
+ 213:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   /* Check the parameters                                                                          
+ 214:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   Assert_Param(IS_SYSTICK_RELOAD(SysTick_Reload));
+ 375              		.loc 2 214 3 view .LVU71
+ 215:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** 
+ 216:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c ****   SysTick->LOAD = SysTick_Reload;
+ARM GAS  /tmp/ccL5L3Ke.s 			page 13
+
+
+ 376              		.loc 2 216 3 view .LVU72
+ 377              		.loc 2 216 17 is_stmt 0 view .LVU73
+ 378 0000 014B     		ldr	r3, .L38
+ 379 0002 5860     		str	r0, [r3, #4]
+ 217:Drivers/HT32F1xxxx_Driver/src/ht32_cm3_misc.c **** }
+ 380              		.loc 2 217 1 view .LVU74
+ 381 0004 7047     		bx	lr
+ 382              	.L39:
+ 383 0006 00BF     		.align	2
+ 384              	.L38:
+ 385 0008 10E000E0 		.word	-536813552
+ 386              		.cfi_endproc
+ 387              	.LFE74:
+ 389              		.comm	Rand_Get,4,4
+ 390              		.section	.rodata.RandData,"a"
+ 391              		.align	2
+ 392              		.set	.LANCHOR0,. + 0
+ 395              	RandData:
+ 396 0000 2DE9FF4F 		.word	1342171437
+ 397 0004 484984B0 		.word	-1333507768
+ 398 0008 4C6A0194 		.word	-1811846580
+ 399 000c 0C6B0094 		.word	-1811911924
+ 400 0010 4C6A44F4 		.word	-196842932
+ 401 0014 40344C62 		.word	1649161280
+ 402 0018 0C6B444D 		.word	1296329484
+ 403 001c 2C430C63 		.word	1661748012
+ 404 0020 4FEA3521 		.word	557181519
+ 405 0024 8C6804F0 		.word	-268146548
+ 406 0028 8004A4F5 		.word	-173800320
+ 407 002c 79448C60 		.word	1619805305
+ 408 0030 42EA0324 		.word	604236354
+ 409 0034 44EA0244 		.word	1141041732
+ 410 0038 44EA0364 		.word	1677978180
+ 411 003c 0C6142EA 		.word	-364748532
+ 412 0040 022444EA 		.word	-364633086
+ 413 0044 034444EA 		.word	-364624893
+ 414 0048 03644C61 		.word	1632396291
+ 415 004c 01EB8202 		.word	42134273
+ 416 0050 17241467 		.word	1729373207
+ 417 0054 01EB8302 		.word	42199809
+ 418 0058 14670122 		.word	570517268
+ 419 005c C1F80021 		.word	553711809
+ 420 0060 8A6842F0 		.word	-264083318
+ 421 0064 80028A60 		.word	1619657344
+ 422 0068 DFF8C490 		.word	-1866139425
+ 423 006c D9F80420 		.word	537196761
+ 424 0070 0292304A 		.word	1244697090
+ 425 0074 53680393 		.word	-1828493229
+ 426 0078 4FF6FF73 		.word	1946154575
+ 427 007c C9F80430 		.word	805632201
+ 428 0080 5360D9F8 		.word	-119971757
+ 429 0084 1C60D769 		.word	1775722524
+ 430 0088 D1F80421 		.word	553973969
+ 431 008c 42F00102 		.word	33681474
+ 432 0090 C1F80421 		.word	553973953
+ 433 0094 D1F83421 		.word	557119697
+ 434 0098 5207FBD5 		.word	-704968878
+ARM GAS  /tmp/ccL5L3Ke.s 			page 14
+
+
+ 435 009c 51F8B02F 		.word	800127057
+ 436 00a0 02F00F0B 		.word	185593858
+ 437 00a4 4A6802F0 		.word	-268277686
+ 438 00a8 0F0E8A68 		.word	1753878031
+ 439 00ac 02F00F0A 		.word	168816642
+ 440 00b0 CA6802F0 		.word	-268277558
+ 441 00b4 0F050A69 		.word	1762264335
+ 442 00b8 02F00F04 		.word	68153346
+ 443 00bc 4A6902F0 		.word	-268277430
+ 444 00c0 0F038A69 		.word	1770652431
+ 445 00c4 C96902F0 		.word	-268277303
+ 446 00c8 0F02D0F8 		.word	-120585713
+ 447 00cc 00C0D9F8 		.word	-119947264
+ 448 00d0 1C80C444 		.word	1153728540
+ 449 00d4 664406EB 		.word	-351910810
+ 450 00d8 0746164F 		.word	1326859783
+ 451 00dc 0660D7F8 		.word	-120102906
+ 452 00e0 1CC04BEA 		.word	-364134372
+ 453 00e4 0E1806EB 		.word	-351922162
+ 454 00e8 0C464FEA 		.word	-363903476
+ 455 00ec 0A2C4CEA 		.word	-364106742
+ 456 00f0 053548EA 		.word	-364366587
+ 457 00f4 050848EA 		.word	-364378107
+ 458 00f8 044444EA 		.word	-364624892
+ 459 00fc 035343EA 		.word	-364686589
+ 460 0100 026242EA 		.word	-364748286
+ 461 0104 0171059A 		.word	-1710919423
+ 462 0108 31441144 		.word	1141982257
+ 463 010c 01600298 		.word	-1744674815
+ 464 0110 C9F80400 		.word	325833
+ 465 0114 03987860 		.word	1618515971
+ 466 0118 03480199 		.word	-1727969277
+ 467 011c 41620099 		.word	-1728028095
+ 468 0120 016308B0 		.word	-1341627647
+ 469 0124 BDE8F08F 		.word	-1880037187
+ 470 0128 00800840 		.word	1074298880
+ 471 012c 40000001 		.word	16777280
+ 472 0130 00000B40 		.word	1074462720
+ 473 0134 00200B40 		.word	1074470912
+ 474              		.section	.rodata.RandData2,"a"
+ 475              		.align	2
+ 476              		.set	.LANCHOR1,. + 0
+ 479              	RandData2:
+ 480 0000 10B50446 		.word	1174713616
+ 481 0004 00684018 		.word	406874112
+ 482 0008 20602146 		.word	1176592416
+ 483 000c 034A0868 		.word	1745373699
+ 484 0010 5043034A 		.word	1241727824
+ 485 0014 80180860 		.word	1611143296
+ 486 0018 400810BD 		.word	-1123022784
+ 487 001c 6D4EC641 		.word	1103515245
+ 488 0020 39300000 		.word	12345
+ 489              		.text
+ 490              	.Letext0:
+ 491              		.file 3 "/mnt/d/Esp32/EspressifTools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machi
+ 492              		.file 4 "/mnt/d/Esp32/EspressifTools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_
+ 493              		.file 5 "Drivers/CMSIS/Include/core_cm3.h"
+ARM GAS  /tmp/ccL5L3Ke.s 			page 15
+
+
+ 494              		.file 6 "Drivers/Device/Holtek/HT32F1xxxx/Include/system_ht32f1xxxx_01.h"
+ 495              		.file 7 "Drivers/Device/Holtek/HT32F1xxxx/Include/ht32f1xxxx_01.h"
+ 496              		.file 8 "/mnt/d/Esp32/EspressifTools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/l
+ 497              		.file 9 "/mnt/d/Esp32/EspressifTools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_
+ 498              		.file 10 "/mnt/d/Esp32/EspressifTools/gcc-arm-none-eabi-9-2019-q4-major/lib/gcc/arm-none-eabi/9.2.
+ 499              		.file 11 "/mnt/d/Esp32/EspressifTools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/
+ 500              		.file 12 "Drivers/HT32F1xxxx_Driver/inc/ht32_rand.h"
+ 501              		.file 13 "/mnt/d/Esp32/EspressifTools/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/stdl
+ARM GAS  /tmp/ccL5L3Ke.s 			page 16
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ht32_cm3_misc.c
+     /tmp/ccL5L3Ke.s:16     .text.Rand_Init:0000000000000000 $t
+     /tmp/ccL5L3Ke.s:24     .text.Rand_Init:0000000000000000 Rand_Init
+     /tmp/ccL5L3Ke.s:62     .text.Rand_Init:0000000000000018 $d
+                            *COM*:0000000000000004 Rand_Get
+     /tmp/ccL5L3Ke.s:69     .text.NVIC_SetVectorTable:0000000000000000 $t
+     /tmp/ccL5L3Ke.s:76     .text.NVIC_SetVectorTable:0000000000000000 NVIC_SetVectorTable
+     /tmp/ccL5L3Ke.s:103    .text.NVIC_SetVectorTable:0000000000000010 $d
+     /tmp/ccL5L3Ke.s:108    .text.NVIC_LowPowerConfig:0000000000000000 $t
+     /tmp/ccL5L3Ke.s:115    .text.NVIC_LowPowerConfig:0000000000000000 NVIC_LowPowerConfig
+     /tmp/ccL5L3Ke.s:152    .text.NVIC_LowPowerConfig:0000000000000018 $d
+     /tmp/ccL5L3Ke.s:157    .text.NVIC_CoreReset:0000000000000000 $t
+     /tmp/ccL5L3Ke.s:164    .text.NVIC_CoreReset:0000000000000000 NVIC_CoreReset
+     /tmp/ccL5L3Ke.s:181    .text.NVIC_CoreReset:0000000000000008 $d
+     /tmp/ccL5L3Ke.s:187    .text.NVIC_SetPendingSystemHandler:0000000000000000 $t
+     /tmp/ccL5L3Ke.s:194    .text.NVIC_SetPendingSystemHandler:0000000000000000 NVIC_SetPendingSystemHandler
+     /tmp/ccL5L3Ke.s:214    .text.NVIC_SetPendingSystemHandler:000000000000000c $d
+     /tmp/ccL5L3Ke.s:219    .text.SYSTICK_ClockSourceConfig:0000000000000000 $t
+     /tmp/ccL5L3Ke.s:226    .text.SYSTICK_ClockSourceConfig:0000000000000000 SYSTICK_ClockSourceConfig
+     /tmp/ccL5L3Ke.s:258    .text.SYSTICK_ClockSourceConfig:000000000000001c $d
+     /tmp/ccL5L3Ke.s:263    .text.SYSTICK_CounterCmd:0000000000000000 $t
+     /tmp/ccL5L3Ke.s:270    .text.SYSTICK_CounterCmd:0000000000000000 SYSTICK_CounterCmd
+     /tmp/ccL5L3Ke.s:312    .text.SYSTICK_CounterCmd:0000000000000028 $d
+     /tmp/ccL5L3Ke.s:317    .text.SYSTICK_IntConfig:0000000000000000 $t
+     /tmp/ccL5L3Ke.s:324    .text.SYSTICK_IntConfig:0000000000000000 SYSTICK_IntConfig
+     /tmp/ccL5L3Ke.s:355    .text.SYSTICK_IntConfig:000000000000001c $d
+     /tmp/ccL5L3Ke.s:360    .text.SYSTICK_SetReloadValue:0000000000000000 $t
+     /tmp/ccL5L3Ke.s:367    .text.SYSTICK_SetReloadValue:0000000000000000 SYSTICK_SetReloadValue
+     /tmp/ccL5L3Ke.s:385    .text.SYSTICK_SetReloadValue:0000000000000008 $d
+     /tmp/ccL5L3Ke.s:391    .rodata.RandData:0000000000000000 $d
+     /tmp/ccL5L3Ke.s:395    .rodata.RandData:0000000000000000 RandData
+     /tmp/ccL5L3Ke.s:475    .rodata.RandData2:0000000000000000 $d
+     /tmp/ccL5L3Ke.s:479    .rodata.RandData2:0000000000000000 RandData2
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/MinGW/include",
+                "${workspaceFolder}/Drivers/HT32F1xxxx_Driver/inc",
+                "${workspaceFolder}/Drivers/utilities",
+                "${workspaceFolder}/Drivers/Device/Holtek/HT32F1xxxx/Include",
+                "${workspaceFolder}/Drivers/CMSIS/Include",
+                "${workspaceFolder}/Drivers/utilities/HT32_Board"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "USE_HT32F1653_54"
+            ],
+            "cStandard": "gnu11",
+            "intelliSenseMode": "msvc-x64"
+        }
+    ],
+    "version": 4
+}
